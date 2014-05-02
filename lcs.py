@@ -45,6 +45,7 @@ def hershies(new_s,new_t,p):
 #print 
 def hershies_rv(s,t):
     hershies(s,t,0)
+    print "her rets %r" % list(set(lst))
     # same as len(lst)
 #    print "w set lst %r" % list(set(lst))
     return list(set(lst))

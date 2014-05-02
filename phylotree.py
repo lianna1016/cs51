@@ -69,6 +69,7 @@ def sort_list (unsorted_lst) :
     priority_lst = []
     # dalength = len(unsorted_lst)
     for element in unsorted_lst :
+       print "srt %r %r" % (root[0],element[0])
        y = hirschberg (root[0], element[0])
        print "y"
        print y
