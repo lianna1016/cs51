@@ -5,8 +5,6 @@ import lev
 alg_fun = (raw_input("Type h for hirschberg, l for levenschtein: "))
 # usage python phylotree.py algorithmname
 
-
-
 class Node(object):
     def __init__(self, data):
         self.data = data
@@ -31,16 +29,16 @@ class Node(object):
         return '<tree node representation>'
               
 glst = []        
-bacteria = ("bacteria", ['A','A','T','A'])
-plant = ("plant" , ['A', 'A', 'A', 'T'])    
-fish = ("fish", ['C', 'C', 'T', 'A'])
-human = ("human", ['G', 'C', 'T', 'G'])
+bacteria = ("bacteria", "AATA")
+plant = ("plant" , "AAAT")    
+fish = ("fish", "CCTA")
+human = ("human", "GCTG")
 
 
 # elements must be a sorted list root, then most similar to root and so on 
 # elements = [bacteria, plant, fish, human]
-
-random_elements = [plant, fish, human, bacteria]
+random_elements = [bacteria, human, fish, plant]
+#random_elements = [plant, fish, human, bacteria]
 
 # creating dummy value of hirschberg so as not to get an error
 #def hirschberg (el_string, second_s) :
