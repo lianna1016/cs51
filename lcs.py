@@ -45,7 +45,7 @@ def hershies(new_s,new_t,p):
 #print 
 def hershies_rv(s,t):
     hershies(" "+s+" "," "+t+" ",0)
-    print "her rets %r %r result %r" % (s,t,list(set(lst)))
+ ##   print "her rets %r %r result %r" % (s,t,list(set(lst)))
     # same as len(lst)
 #    print "w set lst %r" % list(set(lst))
     return list(set(lst))
@@ -54,5 +54,5 @@ def clr () :
 
 g=hershies_rv(new_s,new_t)
 indices = list(set(lst))
-print g
-print indices
+##print g
+##print indices

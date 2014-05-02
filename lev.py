@@ -20,5 +20,5 @@ def lev (s, t) :
                 lev[j][i] = min(lev[j][i-1]+1,lev[j-1][i]+1,lev[j-1][i-1]+sub)
 #    print lev[m-1][n-1]
     return lev[m-1][n-1]
-lol = lev (g, h)
-print lol
+#lol = lev (g, h)
+#print lol
