@@ -52,7 +52,7 @@ random_elements = [plant, fish, human, bacteria]
 def hirschberg(el_string, second_s) :
     global alg_fun
     if alg_fun == 'h':
-        xl = (lcs.hershies_rv(el_string, "@" + second_s))
+        xl = len(lcs.hershies_rv(el_string, "@" + second_s))
         lcs.clr()
         return xl
     elif alg_fun == 'l' :
@@ -74,16 +74,16 @@ def sort_list (unsorted_lst) :
        print y
        priority_lst.append(y)
     priority_lst, unsorted_lst = (list(x) for x in zip(*sorted(zip(priority_lst, unsorted_lst), key =lambda pair: pair[0])))
-    print "priority_lst"
-    print priority_lst
-    print "unsorted_lst"
-    print unsorted_lst
+#    print "priority_lst"
+#    print priority_lst
+#    print "unsorted_lst"
+#    print unsorted_lst
     # unsorted_lst.reverse()
     unsorted_lst.insert(0,root)
     return unsorted_lst
   
 elements = sort_list(random_elements)
-print elements
+print "sorted list of ran el %r" % elements
 # elements = sort_list (random_elements)
 #print "random_elements"
 #print random_elements

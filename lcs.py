@@ -1,27 +1,26 @@
-t = "pinea"
-s = "palech"
-
-# finds longest common subsequence of suffixes
+s = "roger"
+t = "aidig"
+# len(s) = 9, len(t) = 12
+m = len(t)
+# includes characters at index i (in s) and index j (in t)
 def lookup(s,t,i,j):
 	if i == len(s) or j == len(t):
 		return 0
 	elif s[i] == t[j]:
 		return 1 + lookup(s,t,i+1,j+1)
-	else: 
+	else:
 		return max(lookup(s,t,i+1,j),lookup(s,t,i,j+1))
 
-# # finds longest common subsequence of prefixes
+# includes characters at index i (in s) and index j (in t)
 def lookup_new(s,t,i,j):
 	return lookup(s[:(i+1)],t[:(j+1)],0,0)
 
-# s, t are our two input strings, node_max keeps track of the node that
-# yields the current maximum LCS length, length keeps track of the 
-# maximum LCS length, cur_node is a counter that traverses from 0 to 
-# len(t)-1
+# returns height of maximum node along half-way line
 def max_node(s,t,node_max,length,cur_node):
+	half_idx = (len(s)-1)/2
 	if cur_node < len(t):
-		f = lookup(s,t,len(s)/2,cur_node)
-		g = lookup_new(s,t,len(s)/2,cur_node)
+		f = lookup(s,t,half_idx,cur_node)
+		g = lookup_new(s,t,half_idx,cur_node)
 		if f + g >= length:
 			return max_node(s,t,cur_node,f+g,cur_node+1)
 		else:
@@ -29,32 +28,30 @@ def max_node(s,t,node_max,length,cur_node):
 	else:
 		return node_max
 
-# list that we want to store list of row numbers in
+new_s = " " + s + " "
+new_t = " " + t + " "
 lst = []
-def hershies(s,t,p):
-	n = max_node(s,t,0,0,0)
-	if n != 0:
-		lst.append(n+p)
-		hershies(s[:len(s)/2],t[:n],0)
-		hershies(s[len(s)/2:],t[n:],n+p)
+def hershies(new_s,new_t,p):
+	half_idx = (len(new_s)-1)/2
+	n = max_node(new_s,new_t,0,0,0)
+	if len(new_s) > 2:
+            if n+p-1 != m:
+                lst.append(n+p-1)
+		# left side of divide and conquer
+	    hershies(new_s[:(half_idx+1)],new_t[:(n+1)],p)
+		# right side of divide and conquer
+	    hershies(new_s[half_idx:],new_t[n:],n+p)
 
-# want to find list of unique integers in lst
-# hershies(s,"@" + t,0)
-
-def hershies_rv(s, t) :
+#print 
+def hershies_rv(s,t):
     hershies(s,t,0)
-    print "s"
-    print s
-    print "t"
-    print t
-    print "lst"
-    print lst    
-    return len(lst)
-    
-def clr ():
+    # same as len(lst)
+#    print "w set lst %r" % list(set(lst))
+    return list(set(lst))
+def clr () :
     lst[:] = []
 
-# print len(lst)
-# similarity_value = len(lst)
-# print similarity_value
-# print lst
+g=hershies_rv(new_s,new_t)
+indices = list(set(lst))
+print g
+print indices
