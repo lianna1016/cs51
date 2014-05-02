@@ -1,8 +1,14 @@
+#testing
 s = "roger"
 t = "aidig"
-# len(s) = 9, len(t) = 12
 m = len(t)
-# includes characters at index i (in s) and index j (in t)
+new_s = " " + s + " "
+new_t = " " + t + " "
+
+# global variable storage of results VERY IMPORTANT
+# needs to be cleared after each use of hirschberg
+lst = []
+
 def lookup(s,t,i,j):
 	if i == len(s) or j == len(t):
 		return 0
@@ -28,9 +34,6 @@ def max_node(s,t,node_max,length,cur_node):
 	else:
 		return node_max
 
-new_s = " " + s + " "
-new_t = " " + t + " "
-lst = []
 def hershies(new_s,new_t,p):
 	half_idx = (len(new_s)-1)/2
 	n = max_node(new_s,new_t,0,0,0)
@@ -45,14 +48,11 @@ def hershies(new_s,new_t,p):
 #print 
 def hershies_rv(s,t):
     hershies(" "+s+" "," "+t+" ",0)
- ##   print "her rets %r %r result %r" % (s,t,list(set(lst)))
-    # same as len(lst)
-#    print "w set lst %r" % list(set(lst))
     return list(set(lst))
 def clr () :
     lst[:] = []
 
+#testing
 g=hershies_rv(new_s,new_t)
 indices = list(set(lst))
-##print g
-##print indices
+# print indices to see testing results
