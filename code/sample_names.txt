@@ -1,5 +1,7 @@
-a
-b
-c
-d
-e
+bacteria
+human
+plant
+bird
+chromosome 14 sample 1
+chromosome 14 sample 2
+chromosome 14 sample 3
