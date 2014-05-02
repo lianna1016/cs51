@@ -1,23 +1,16 @@
-# import the file with hirschberg's
 import lcs
-# import the file with levenshtein's
 import lev
-
-# prompts the user for whether they want to use hirschberg's or levenschtein's
 alg_fun = (raw_input("Type h for hirschberg, l for levenschtein: "))
 
-# creating the node class
 class Node(object):
     def __init__(self, data):
         self.data = data
         self.children = []
         self.parent = None
-    
-    # allows us to ad a child
+
     def add_child(self, obj):
         self.children.append(obj)
-        
-    # allows us to add a parent
+    
     def add_parent(self, obj):
         self.parent = obj
     
@@ -31,19 +24,13 @@ class Node(object):
     # this function was inspired by stack overflow http://stackoverflow.com/questions/20242479/printing-a-tree-datastructure-in-python
     def __repr__(self):
         return '<tree node representation>'
-        
-# creates a global list          
-glst = []
-
-# dummy values for the bacteria, plant, fish, human so we can test our implementation
+              
+glst = []        
 bacteria = ("bacteria", "AATA")
 plant = ("plant" , "AAAT")    
 fish = ("fish", "CCTA")
 human = ("human", "GCTG")
 chromo14 = ("human chromosome14 sample", "GAATTCGTAGTGCCCTGGTCAGCACAGTCACTCTTGTGATATACTTGGTGTATATACCAGGGTTAATTACTGGTCCAGAAGAACTTAATCTCAAGAGTCAATTTCTAGTTATCCCAACATGGCACGGATAAAATCTTGCAGAAAAAAAATCTTTGTCATTGAGACCAAATTATAGTTTTCATACAGTGGATTTACATTGTTGATGTTTTACTTATGTTTATGTTAGACTTAATTTATATTTGTAGAATCTACTGTTTCTGATTATTTAGAGAATGGGAAACTGAAAGAAATTTTAAAGACATTAAGTGAACATTATTTGTTCTAATGGGTTTCTAGTGAATTTCCTTCAAGGTGGGGCATAGAGATTGAGAGGAGAGGTTTTCTAGGAGAGTCTCAAACAGGAAGACAACCGATATAAGTGTTTATTCCTCTTGGTTGTCAGTGCGTCAGTAAAGCTTCTTTCCTTCTTTTTTCTAGCAGGCAGATAGAAGTTCATGTCACTTTCTCCTTTTTTATGGAGTAGGATGTGATACTCCTTCTAGTGGAAATACCAATCAAATGTCCATGGGTCATGAAGTGTCACTATGTACTCCTGAGCCTCTCTCCAGAAGGGAAAAGGGAACTCCTCTATGGTCAGCTTCTTTTGTAATTTTCCTGTATCATCTCGTGTGCTCTATTTGTTTTCTGAATGAACTTTGGTAAATTTCATCCAGGTAATATAGAGTAATAGTGAAAAACTGCTTAGACTCTAGTTCTATCACTGCTCTTTATGGAATTTTGGGCAAGTTCTTAACATCCTTGTTCCTCAATTCCTCAACTTTAAAATGGGGACAATAATAATTCCTGCTCCAGAGTTGTTGTGAGGGTTAAATAAAAAAATGTGTAAATAGCACTTGACACATACAAGCTGTATCTGATAACCTCCACCTCATGAAAAACCATTCATAGCATAGAAGTATAGAATTTGTACCAGCTAACAAAGGTACAGATGTACAGGGATAAAAACAAAATATTTTGTTTCATGTTAAAGATAAGTGTTTCTGTGATTTGCATTTGTGTGTATAATTTCCTTTAAATATAAATCATATTTCAAGTGAAAATATCGGGTCATTACAGAAGAGTTTATTTTCCAAACCAAAACTTTTTTCATCCCTAATTTTTAATATAGCCTTGTTAAAGAAAAAAACATCTAAGCAGTATGCTATTTATTATTGTCTGTTTTACTTGCAGAATTTGAATGTATTTTGTCAATTATTTTCTCCATTTCATGTTTGGGGAATAGGTCATTCAGAATCAAGTCTATCTTCTACAGCAATATTTTGTTCTTGTTTATGCCCTTGTTTCAATGAGTGCCGCAGTGTACTTATTTTATTACTTCCCTAGAGCAAGTAGATAGAATTTCCTGTTACTTCCTCTGTTTTTGTCATTTGTAATTGACTGGGAAGTACATTATATAGTTACTGCAGTAGATTTATGTTATGGTGTTTTACCTGTCCGTGTTAGAATCGGTTTCCATTTCTGGAATCTGGAATAGGATAATACCTATTTTATTTGAAATTGGACAGATAGTAGCCTTATGTTGGTCCAGATAATCTCATTTCTCATTTGGACAAGATATTTTGGGGTTTGAAAAATTCATATAATGATTAAAGGAGAAAGCTCTTATGAGTTATTGTATGCTGAGATATATGTGGACACACACACACACACACACACACACACACACACGCAGTTTATTGCATTGTTGGGTTTTATACATAAAATTACCCAAGTTGCAAATATATGTCTACCACCCTTGAC")
-
-# tests whether the user wants to use hirschberg's or levenshtein's
-# goes by default to levenshtein's
 def hirschberg(el_string, second_s) :
     global alg_fun
     if alg_fun == 'h':
@@ -79,16 +66,18 @@ elements = sort_list(random_elements)
 
 #INSERT UP
 # node is object to be added to tree, recent is most recently added object
+
 def insert_up (node, recent) :
     if recent.parent == None :
         insert_down(node, recent)
     else:
     # so if the element is more similar to the parent node, keep calling insert up on the parent
-        # CASE similar to parent
+    # compares hirschberg similarity values. Will change when hirschberg actual implemented
+    # CASE similar to parent
         if hirschberg (node.data[0], recent.data[0]) < hirschberg (node.data[0], recent.parent.data[0]):  
             insert_up(node, recent.parent)
-        # CASE similar to recent
-        # if the element is more similar to the recent, then call insert_down
+    # CASE similar to recent
+    # if the element is more similar to the recent, then call insert_down
         else :
             insert_down(node, recent)
 
@@ -134,23 +123,15 @@ def create_tree (el = elements) :
        glst.append ( Node (el[x]))
        # no need to create glst[x-1] b/c should've already been created in past
        insert_up (glst[x], glst[x - 1])
-def clr_glst () :
-    global glst
-    glst[:] = []
-def get_glst () :
-    return glst
-
-#create the tree       
+#create tree       
 create_tree()
 
 # string of names
-def str_dalst (elems = elements):
-    name_list = []
-    for elemen in elems:
-        name_list.append(elemen[0])
-    string_name = ', '.join(name_list)
-    return string_name
+name_list = []
+for elemen in elements:
+    name_list.append(elemen[0])
+string_name = ', '.join(name_list)
 
-# prints test tree
-#print "Phylogenetic Tree of %r" % string_name
-#print glst[0]
+# prints tree
+print "Phylogenetic Tree of %r" % string_name
+print glst[0]
