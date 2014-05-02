@@ -13,7 +13,7 @@ dnalist = g.readlines()
 dnalist = [r.strip('\n') for r in dnalist]
 mainlist = zip(namelist, dnalist)
 
-#creates tree for mainlist elements
+#creates tree for mainlist elements, gets results
 phylotree.clr_glst()
 phylotree.create_tree(mainlist)
 dalst = phylotree.get_glst()
@@ -23,5 +23,6 @@ mainstr = phylotree.str_dalst(mainlist)
 print "tree of %r" % mainstr
 print dalst[0]
 
+#closes text files
 g.close()
 f.close()

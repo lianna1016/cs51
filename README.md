@@ -3,6 +3,8 @@ cs51
 
 Our cs51 phylogenetic tree project
 
+video found at: http://youtu.be/X60wiTedsek 
+
 Developers: The Zzzz's
 Aidi Zhang
 Belinda Zeng
@@ -20,5 +22,7 @@ lcs.py
     invariant: for the function hershies within this file, the length of the first input string must be greater than the length of the second input string, unless they are the same, in which case, does not matter
 lev.py
     invariant: the function lev takes in 2 string inputs
+input.py
+    invariant: takes in a name text file (one name per line) and a dna text file (one dna strand per line, should match number of lines in name text file), creates tree from them. "python input.py namefile.txt dnafile.txt"
 
 
