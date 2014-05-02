@@ -1,8 +1,11 @@
 import lcs
-from sys import argv
-script, algorithm = argv
-
+import lev
+#from sys import argv
+#script, algorithm = argv
+alg_fun = (raw_input("Type h for hirschberg, l for levenschtein: "))
 # usage python phylotree.py algorithmname
+
+
 
 class Node(object):
     def __init__(self, data):
@@ -39,19 +42,27 @@ human = ("human", ['G', 'C', 'T', 'G'])
 
 random_elements = [plant, fish, human, bacteria]
 
-"""
 # creating dummy value of hirschberg so as not to get an error
-def hirschberg (el_string, second_s) :
-   x = abs(len(el_string) - len(second_s))
-   y = x * (-1)
-   return y
-"""
+#def hirschberg (el_string, second_s) :
+#   x = abs(len(el_string) - len(second_s))
+ #  y = x * (-1)
+  # return y
+
 
 def hirschberg(el_string, second_s) :
-    x = (lcs.hershies_rv(el_string, "@" + second_s))
-    lcs.clr()
-    return x
-    
+    global alg_fun
+    if alg_fun == 'h':
+        xl = (lcs.hershies_rv(el_string, "@" + second_s))
+        lcs.clr()
+        return xl
+    elif alg_fun == 'l' :
+        ll = lev.lev(el_string, second_s)
+        return ll
+    else :
+        print "Assuming levenschtein. Input: python phylotree.py h for hirschberg"
+        alg_fun = 'l'
+        hirschberg(el_string, second_s)
+        
 # take an unsorted element list and sort it
 def sort_list (unsorted_lst) :
     root = unsorted_lst.pop(0)
