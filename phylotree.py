@@ -52,7 +52,11 @@ random_elements = [plant, fish, human, bacteria]
 def hirschberg(el_string, second_s) :
     global alg_fun
     if alg_fun == 'h':
-        xl = len(lcs.hershies_rv(el_string, "@" + second_s))
+        xl = 0 
+        if len(el_string) < len(second_s) :
+            xl = len(lcs.hershies_rv(el_string, second_s))
+        else :
+            xl = len(lcs.hershies_rv(second_s, el_string))
         lcs.clr()
         return xl
     elif alg_fun == 'l' :
