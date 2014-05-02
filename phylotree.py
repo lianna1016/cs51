@@ -1,9 +1,6 @@
 import lcs
 import lev
-#from sys import argv
-#script, algorithm = argv
 alg_fun = (raw_input("Type h for hirschberg, l for levenschtein: "))
-# usage python phylotree.py algorithmname
 
 class Node(object):
     def __init__(self, data):
@@ -34,19 +31,6 @@ plant = ("plant" , "AAAT")
 fish = ("fish", "CCTA")
 human = ("human", "GCTG")
 chromo14 = ("human chromosome14 sample", "GAATTCGTAGTGCCCTGGTCAGCACAGTCACTCTTGTGATATACTTGGTGTATATACCAGGGTTAATTACTGGTCCAGAAGAACTTAATCTCAAGAGTCAATTTCTAGTTATCCCAACATGGCACGGATAAAATCTTGCAGAAAAAAAATCTTTGTCATTGAGACCAAATTATAGTTTTCATACAGTGGATTTACATTGTTGATGTTTTACTTATGTTTATGTTAGACTTAATTTATATTTGTAGAATCTACTGTTTCTGATTATTTAGAGAATGGGAAACTGAAAGAAATTTTAAAGACATTAAGTGAACATTATTTGTTCTAATGGGTTTCTAGTGAATTTCCTTCAAGGTGGGGCATAGAGATTGAGAGGAGAGGTTTTCTAGGAGAGTCTCAAACAGGAAGACAACCGATATAAGTGTTTATTCCTCTTGGTTGTCAGTGCGTCAGTAAAGCTTCTTTCCTTCTTTTTTCTAGCAGGCAGATAGAAGTTCATGTCACTTTCTCCTTTTTTATGGAGTAGGATGTGATACTCCTTCTAGTGGAAATACCAATCAAATGTCCATGGGTCATGAAGTGTCACTATGTACTCCTGAGCCTCTCTCCAGAAGGGAAAAGGGAACTCCTCTATGGTCAGCTTCTTTTGTAATTTTCCTGTATCATCTCGTGTGCTCTATTTGTTTTCTGAATGAACTTTGGTAAATTTCATCCAGGTAATATAGAGTAATAGTGAAAAACTGCTTAGACTCTAGTTCTATCACTGCTCTTTATGGAATTTTGGGCAAGTTCTTAACATCCTTGTTCCTCAATTCCTCAACTTTAAAATGGGGACAATAATAATTCCTGCTCCAGAGTTGTTGTGAGGGTTAAATAAAAAAATGTGTAAATAGCACTTGACACATACAAGCTGTATCTGATAACCTCCACCTCATGAAAAACCATTCATAGCATAGAAGTATAGAATTTGTACCAGCTAACAAAGGTACAGATGTACAGGGATAAAAACAAAATATTTTGTTTCATGTTAAAGATAAGTGTTTCTGTGATTTGCATTTGTGTGTATAATTTCCTTTAAATATAAATCATATTTCAAGTGAAAATATCGGGTCATTACAGAAGAGTTTATTTTCCAAACCAAAACTTTTTTCATCCCTAATTTTTAATATAGCCTTGTTAAAGAAAAAAACATCTAAGCAGTATGCTATTTATTATTGTCTGTTTTACTTGCAGAATTTGAATGTATTTTGTCAATTATTTTCTCCATTTCATGTTTGGGGAATAGGTCATTCAGAATCAAGTCTATCTTCTACAGCAATATTTTGTTCTTGTTTATGCCCTTGTTTCAATGAGTGCCGCAGTGTACTTATTTTATTACTTCCCTAGAGCAAGTAGATAGAATTTCCTGTTACTTCCTCTGTTTTTGTCATTTGTAATTGACTGGGAAGTACATTATATAGTTACTGCAGTAGATTTATGTTATGGTGTTTTACCTGTCCGTGTTAGAATCGGTTTCCATTTCTGGAATCTGGAATAGGATAATACCTATTTTATTTGAAATTGGACAGATAGTAGCCTTATGTTGGTCCAGATAATCTCATTTCTCATTTGGACAAGATATTTTGGGGTTTGAAAAATTCATATAATGATTAAAGGAGAAAGCTCTTATGAGTTATTGTATGCTGAGATATATGTGGACACACACACACACACACACACACACACACACACGCAGTTTATTGCATTGTTGGGTTTTATACATAAAATTACCCAAGTTGCAAATATATGTCTACCACCCTTGAC")
-
-# elements must be a sorted list root, then most similar to root and so on 
-# elements = [bacteria, plant, fish, human]
-random_elements = [bacteria, human, fish, plant, chromo14]
-#random_elements = [plant, fish, human, bacteria]
-
-# creating dummy value of hirschberg so as not to get an error
-#def hirschberg (el_string, second_s) :
-#   x = abs(len(el_string) - len(second_s))
- #  y = x * (-1)
-  # return y
-
-
 def hirschberg(el_string, second_s) :
     global alg_fun
     if alg_fun == 'h':
@@ -69,62 +53,40 @@ def hirschberg(el_string, second_s) :
 def sort_list (unsorted_lst) :
     root = unsorted_lst.pop(0)
     priority_lst = []
-    # dalength = len(unsorted_lst)
     for element in unsorted_lst :
-       ##print "srt %r %r" % (root[0],element[0])
        y = hirschberg (root[0], element[0])
-# #      print "y"
- ##      print y
        priority_lst.append(y)
     priority_lst, unsorted_lst = (list(x) for x in zip(*sorted(zip(priority_lst, unsorted_lst), key =lambda pair: pair[0])))
-#    print "priority_lst"
-#    print priority_lst
-#    print "unsorted_lst"
-#    print unsorted_lst
-    # unsorted_lst.reverse()
     unsorted_lst.insert(0,root)
     return unsorted_lst
   
+# elements must be a sorted list root, then most similar to root and so on 
+random_elements = [bacteria, human, fish, plant, chromo14]
 elements = sort_list(random_elements)
-##print "sorted list of ran el %r" % elements
-# elements = sort_list (random_elements)
-#print "random_elements"
-#print random_elements
 
 #INSERT UP
-#insert up documentation thoughts
 # node is object to be added to tree, recent is most recently added object
 
 def insert_up (node, recent) :
-    # if recent is the root
-    #node = Node(nod)
-    #recent = Node(recen)
-# if recent.parent is None, means recent is root node, so add down from root node
     if recent.parent == None :
-        # call insert down
         insert_down(node, recent)
     else:
     # so if the element is more similar to the parent node, keep calling insert up on the parent
     # compares hirschberg similarity values. Will change when hirschberg actual implemented
     # CASE similar to parent
         if hirschberg (node.data[0], recent.data[0]) < hirschberg (node.data[0], recent.parent.data[0]):  
-            # else, call insert_up
-            # head up tree, call parent
             insert_up(node, recent.parent)
-      #      print "insert up %r %r" % (node.data, recent.parent.data)
     # CASE similar to recent
     # if the element is more similar to the recent, then call insert_down
         else :
             insert_down(node, recent)
-     #       print "insert down %r %r" % (node.data, recent.data)
-
 
 #INSERT DOWN
 # n as node to add, baby as parent node we want to add from
 def insert_down(n, baby): 
     # if we each a leaf
     if len(baby.children) == 0 : 
-        # creeate new node, add node as a child to baby, make baby parent to child
+        # create new node, add node as a child to baby, make baby parent to child
         baby.add_child(n)
         n.add_parent(baby)
     # if there's one child, keep traversing
@@ -161,37 +123,15 @@ def create_tree (el = elements) :
        glst.append ( Node (el[x]))
        # no need to create glst[x-1] b/c should've already been created in past
        insert_up (glst[x], glst[x - 1])
-       
-   #    print glst[x].data     
-   #    print glst[x].parent.data
-       
-    # print glst[x].children.data
-   # print glst[0].data
-    #print glst[1].data    
-#f = Node(fish)
-#h = Node (human)
-
+#create tree       
 create_tree()
+
+# string of names
 name_list = []
 for elemen in elements:
     name_list.append(elemen[0])
-print "Phylogenetic Tree of %r" % str(name_list)
-print glst[0]
+string_name = ', '.join(name_list)
 
-"""
-print "lol"
-for l in glst:
-    print l.data[0]
-#    print l.children
-    if l.children != []:
-        for ch in l.children:
-            print "ch %r" % ch.data[0]
-    else:
-        print "no children :("
-    if l.parent == None:
-        print "None lol parent"
-    else:
-        print l.parent.data[0]
-    print ""
-"""    
-    
+# prints tree
+print "Phylogenetic Tree of %r" % string_name
+print glst[0]
