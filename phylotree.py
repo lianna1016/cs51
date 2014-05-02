@@ -1,4 +1,8 @@
 import lcs
+from sys import argv
+script, algorithm = argv
+
+# usage python phylotree.py algorithmname
 
 class Node(object):
     def __init__(self, data):
