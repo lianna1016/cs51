@@ -67,14 +67,15 @@ def sort_list (unsorted_lst) :
     root = unsorted_lst.pop(0)
     priority_lst = []
     for element in unsorted_lst :
-       y = hirschberg (root[0], element[0])
+       y = hirschberg (root[1], element[1])
        priority_lst.append(y)
     priority_lst, unsorted_lst = (list(x) for x in zip(*sorted(zip(priority_lst, unsorted_lst), key =lambda pair: pair[0])))
     unsorted_lst.insert(0,root)
     return unsorted_lst
   
 # elements must be a sorted list root, then most similar to root and so on 
-random_elements = [bacteria, human, fish, plant, chromo14]
+#random_elements = [bacteria, human, fish, plant, chromo14]
+random_elements = [bacteria, human, fish, plant]
 elements = sort_list(random_elements)
 
 #INSERT UP
@@ -85,7 +86,7 @@ def insert_up (node, recent) :
     else:
     # so if the element is more similar to the parent node, keep calling insert up on the parent
         # CASE similar to parent
-        if hirschberg (node.data[0], recent.data[0]) < hirschberg (node.data[0], recent.parent.data[0]):  
+        if hirschberg (node.data[1], recent.data[1]) < hirschberg (node.data[1], recent.parent.data[1]):  
             insert_up(node, recent.parent)
         # CASE similar to recent
         # if the element is more similar to the recent, then call insert_down
@@ -103,7 +104,7 @@ def insert_down(n, baby):
     # if there's one child, keep traversing
     elif len(baby.children) == 1 :
         # CASE more similar to child
-        if hirschberg (n.data[0], baby.children[0].data[0]) >= hirschberg(n.data[0], baby.data[0]) :
+        if hirschberg (n.data[1], baby.children[0].data[1]) >= hirschberg(n.data[1], baby.data[1]) :
         # go to the next child
             insert_down(n, baby.children[0])
         # CASE more similar to 
@@ -113,7 +114,7 @@ def insert_down(n, baby):
     # if there's two children
     elif len(baby.children) == 2 : 
     # traverse the branch with more similarity
-        if hirschberg (n.data[0],baby.children[0].data[0]) > hirschberg (n.data[0],baby.children[1].data[0]) :
+        if hirschberg (n.data[1],baby.children[0].data[1]) > hirschberg (n.data[1],baby.children[1].data[1]) :
             insert_down(n, baby.children[0])
         else: 
             insert_down(n, baby.children[1])
@@ -141,7 +142,7 @@ def get_glst () :
     return glst
 
 #create the tree       
-create_tree()
+#create_tree()
 
 # string of names
 def str_dalst (elems = elements):

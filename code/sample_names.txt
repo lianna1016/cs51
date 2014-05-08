@@ -2,6 +2,11 @@ bacteria
 human
 plant
 bird
-chromosome 14 sample 1
-chromosome 14 sample 2
-chromosome 14 sample 3
+sample1
+sample2
+sample3
+extrasample
+chromo14sample
+14_1
+14_2
+14_3
