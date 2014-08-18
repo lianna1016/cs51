@@ -1,0 +1,2723 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;\f2\fmodern\fcharset0 Courier-Bold;
+}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 cs51\
+Roger Zou\
+\
+Recognize probs, map onto right langues: abstractions and algorithms\
+\
+Few concepts at a time\
+\
+Some hw do in groups\
+\
+course preceptor: robert bowden (rob@cs.harvard.edu)\
+\
+\
+Progamming language paradigms:\
+Imperative\
+Object-Oriented\
+Functional\
+\
+Object oriented:\
+objects=encapsulation of procedures/data. Lets hide implementation\
+classes=inheritance\
+polymorphism:lets same code be used with several different types of objects and behave differently depending on actual type\
+\
+ex: dogs and cats are both mammals. so both are warm blooded. but \'93speak\'94 method differs: both have it, but diff dogs=woof, cats=meow\
+\
+Functional:\
+emphasizes evaluation of expression. Recursion ftw\
+functions can  be constructed at exec time. results based on input, not program state (no \'93side effect\'94)\
+Ex: LISP: (read-eval-print loop of 
+\i s-expressions
+\i0 )\
+	atoms (numeric/symbolic)\
+	
+\b list
+\b0 s of atoms\
+	
+\b list
+\b0 s of 
+\i s-expressions
+\i0 \
+(3  x  2).\
+\
+(+ 3 4 pi) in CLISPS evaluates 3 + 4 + pi\
+function arguments?\
+(defun\'85wtf?)\
+\
+(mapcar \'911- \'91(3 -9 34 99 2)) creates (2 -10 33 98 1). basically subtracts 1 from defined list\
+\
+Real World Ocaml\
+The Functional Approach to Programming\
+\
+
+\b wtf why ocaml\
+
+\b0 ObjectiveCaml: modern functional language, mix of conciseness/performance\
+Statically typed, type inference\
+Designed around inductive defs and pattern match\
+fuuuuuuuuuuuu and yo bullcrap\
+\
+\
+\
+ocaml example stuff\
+  5 + 7;; (+ only works for ints)\
+-:int=12 (result)\
+#2+5*8;;\
+-:int=42 (the result)\
+#2+5;;\
+\
+ocaml: end with ;; instead of ; WTF WAIIIII\
+\
+\'93hello\'94;;\
+-:string=\'93hello\'94\
+\
+\'93hello\'94^\'94world\'94;;\
+-:string=\'93helloworld\'94 (concatenate only strings)\
+\
+#\'94CS\'94 ^ string_of_int 51;;\
+-:string=\'93CS51\'94\
+\
+string_of_int;;\
+-:int -> string = <fun>\
+wtf\
+well says what id does at least\
+\
+#let favorite_dept= \'93CS\'94;; \
+val favorite_dept : string = \'93CS\'94  (made a variable)\
+\
+#favorite_dept;;\
+-:string=\'93CS\'94\
+\
+#let favorite_course=favorite_dept ^ string_of_int 51;;\
+#favorite_course;;\
+-:string=\'93CS51\'94\
+\
+#5.3+2;;\
+fail b/c only adds int\
+\
+(+);;\
+-:int -> int -> int = <fun>\
+\
+\
+#5.3 +. 2;;\
+fail b/c only adds float\
+\
+#float_of_int 2;;\
+FAIL\
+#Float.of_int 2;;\
+-:Core.Std.Float.t = 2.\
+:/ really ocaml wtf\
+\
+5.3 +. Float.of_int 2;;\
+-:float = 7.3\
+\
+#let f_of_c celsius = 9 / 5 * celsius + 32;;\
+val f_of_c : int -> int = <fun>\
+\
+#f_of_c 0;;\
+-: int 32;;\
+\
+\
+problem: 9/5 = 1 b/c int/int=int\
+\
+\
+#let f_of_c celsius = 9.0 /. 5.0 *. celsius +. 32.;;\
+val f_of_c:float -> float = <fun>\
+it\'92s a float to float function\
+\
+\
+#let f_of_c (celsius:float) = 9. /. 5. *. celsius +. 32.;;\
+float -> float = <fun>\
+\
+\
+\
+\
+\
+Lecture 2 1/30/14\
+(* comments *)\
+\
+let square x = x *. x\
+//defines a function\
+\
+assert( distance(1., 3.)(-4.,15.) = 12.);;\
+if fail: Exception: \'93Assert_failure //wefwef\'94.\
+\
+let distance p1 p2 =\
+	let (x1, y1) = p1 in\
+	let (x2, y2) = p2 in\
+		sqrt(square(x1 -. x2) +. square(y1 -. y2))\
+//defines function distance\
+\
+or\
+let distance (x1, y1)(x2, y2) = \
+	sqrt(square(x1-.x2)+.square(y1-.y2))\
+//define func distance. uses pairs of numbers\
+\
+\
+let d_from_O = distance(0., 0.);; //\'85\
+\
+let double_sope(a_slope:float option) : float option =\
+	match a_slope with\
+	| Some f -> Some (2.0 *. f)\
+	| None -> None\
+\
+assert (double_slope(slope(0.,0.)(4.,8.)) = Some 4.0 )\
+\
+let cs51staff = [\'93..efwe\'94;\'94qfqe\'94;\'94fwv\'94]\
+//string list\
+\
+if don\'92t know if all string, just use list\
+(\'93a\'94,\'94b\'94,\'94c\'94,\'94d\'94)\
+\
+\
+\
+\
+let cs51_staff = \'93Henry\'94 :: (\'93Jesse\'94 :: (\'93MIke\'94 :: (\'93Rob\'94 :: [] )))\
+WTF\
+same way as\
+let cs51_staff = \'93fwefe :: \'93wefwe\'94 :: \'93fqf\'94 :: \'93fwefw\'94 :: []\
+\
+//string list is either:\
+	[]\
+	x :: xs where x is a string and xs is a string list []\
+\
+\
+1. thing about problem and data (define types)\
+2. function header (name it, purpose statement)\
+3. examples. (ocaml helps)\
+4. pick a strategy (domain knowledge, composition, structural)\
+5. Code\
+6. Tests (from examples)\
+\
+let sum_list (xs : int list) : int =\
+	match xs with\
+	| [] -> 0  //empty case, will always be 0\
+		jkignore	| x :: xs\'92 -> \'85 x \'85 sum_list xs\'92 \'85 //or has a list with x and list of xs??\
+	| x :: xs\'92 -> x + sum_list xs\'92 //adds via recursion\
+\
+let rec \'85 means defining a recording function???\
+\
+let rec sum_list (xs : int list) : int =\
+same as let rec sum_list xs = \'85\
+better to use first way cuz wants to have documentation\
+\
+\
+let rec square_list (xs : int list) : int list =\
+	match xs with\
+	| [] -> []\
+	| x :: xs\'92 -> x * x :: square_list xs\'92\
+\
+\
+let rec prods_list (xys : (int * int) list) : int list =\
+	match xys with\
+	| [] -> \'85\
+//lolignore			| x :: xs\'92 -> \'85 x \'85 prods_list xs\'92 \'85\
+	| (x, y) :: xys\'92 -> x * y :: prods_list xys\'92\
+\
+\
+\
+\
+\
+for variance problem:\
+Have a mean helper function to calculate the mean\
+use mean function in sum\
+\
+let answer = ??? in\
+Some answer\
+\
+list length\
+float (List.length listname)\
+\
+\
+\
+\
+\
+2/4/14 lecture\
+\
+int * int = pair of ints (a, b)\
+\
+type programmer = \{name: string; age: int; fav_lang: string\}\
+let alice = \{name = \'93Alice\'94; age = 32; fav_lang = \'93OCaml\'94\}    (* what a faggot *)\
+\
+let age_diff (p1 : programmer) (p2 : programmer) : int =\
+ ///JK IGNORE PLZ  	let \{ name = _; age = a1; fav_lang = _ \} = p1 in    (* declares local variable *)\
+	p1.age - p2.age\
+\
+\
+(* insert programmer into list sort by age *)\
+let rec insert (p : programmer) (ps : programmer list) : programmer list =\
+	match ps with\
+	| [] -> [o]\
+	| [\'91 :: ps\'92 ->\
+		if p.age <= p\'92.age\
+		then p ::p :: ps\
+		else p\'92 :: insert p ps\'92\
+(* goes thru list, checks if first in list is > or <. If so, puts at top. If not, moves to next *)\
+\
+(* sort list by age *)\
+let rec sort (ps : programmer list) : programmer list =\
+	match ps with\
+	| [] -> []\
+	| p\'92 :: ps\'92 -> insert p\'92 (sort ps\'92)\
+\
+\
+type shape = Circle of float\
+		| Rectangle of float * float\
+	(* note the capitalization *)\
+let unit circle = Circle 1.0\
+let rectangle4by3 = Retangle (4., 3.)\
+\
+(* area *)\
+let area (s : shape) : float =\
+	match s with\
+	| Circle r -> pi *. r *. r\
+	| Rectangle (w, h) -> w *. h\
+\
+\
+let scale_shape (factor : float) (s : shape) : shape =\
+	match s with\
+	| Circle r -> Circle (factor *. r)\
+	| Rectangle (w, h) -> Rectangle (factor *. w, factor *.h)\
+\
+type int_option = Nothing\
+			| Just of int\
+\
+type int_list = Empty\
+			| Cons of int * int_list\
+type color = Red | Green | Blue\
+\
+\
+(* several diff kinds of values *)\
+type value = Int of int\
+	| Str of string\
+	| Bool of bool\
+	| Pair of value * value\
+\
+let v1 = Int 5\
+let v2 = Str \'93hello\'94\
+let v3 = Pair (v1, v2)\
+let v4 = Pair (Pair (v3, Bool true),\
+		Pair (Int 7 Str \'93world\'94))\
+\
+(* sums all ints in a value *)\
+let rec sum_ints (v : value) : int =\
+	match v with\
+	| Int z -> z\
+	| Str s -> 0\
+	| Bool b -> 0\
+	| Pair (v1, v2) -> sum_ints v1 + sum_ints v2\
+\
+(* gather all strings into a value into list *)\
+let rec gather_strings (v : value) : string list =\
+	match v with\
+	| Int _ -> []\
+	| Str s -> [s]\
+	| Bool _ -> []\
+	| Pair (v1, v2) -> gather_strings v1 @ gather_strings v2\
+\
+
+\b @ sign is used to append lists
+\b0 \
+ex: [1;3;98] @ [2; 12] will make int list [1;3;98;2;12]\
+\
+assert (gather_strings v4 = [\'93hello\'94;\'94world\'94])\
+\
+(* to format value as a string *)\
+let string_of_value (v: value) : string =\
+	match v with\
+	|\
+fuck\
+\
+use :: add an element into a list\
+	[2;5] :: [3;4;5] = ERROR\
+	[2;5;] :: [[3;4];[5]]  (the one on the right is really only one element)\
+		= int list list [[2;5];[3;4];[5]]\
+use ^ to add strings together\
+use @ to add two lists of same type together\
+\
+let append_int_list (xs : int list) (ys : int list) : int list =\
+	match xs with\
+	| [] -> ys\
+	| x :: xs\'92 -> x :: append_int_list xs\'92 ys\
+\
+let rec append_string_list (xs : string list) (ys : string list) : string list =\
+	match xs with\
+	| [] -> ys\
+	| x :: xs\'92 -> x :: append_string_list xs\'92 ys\
+\
+assert ( append_string_list [\'93meh\'94;\'94repetition\'94] [\'93ab\'94] = [\'93meh\'94; \'93repetition\'94 ; \'93ab\'94] )\
+\
+let rec append_list xs ys =\
+	match xs with\
+	| [] -> ys\
+	| x :: xs\'92 -> x :: append_list xs\'92 ys\
+^ is polymorphic. \'91a list -> \'91a list -> \'91a list\
+\
+\
+\
+\
+\
+\
+\
+\
+2/6/14 lecture\
+\
+let rec inc_list (xs : int list) : int list =\
+	match xs with\
+	| [] -> []\
+	| x :: s -> 1 + x :: inc_list s\
+\
+let rec add_to_list (n : int) (xs : int list) : int list =\
+	match xs with\
+	| [] -> []\
+	| x :: xs\'92 -> n + x :: add_to_list n xs\'92\
+\
+let inc_list xs = add_to_list 1 xs\
+same as:\
+let inc_list = add_to_list 1\
+\
+\
+(* Map a function of every element of an int list *)\
+let rec map (f : int -> int) (xs : int list) : int list =\
+	match xs with\
+	| [] -> []\
+	| x :: xs\'92 -> f x :: map f xs\'92\
+// here, f : int -> int indicates f is a function\
+\
+\
+let inc x = x + 1\
+let inc_list (xs : int list) : int list = map inc xs\
+\
+(* adds int to every element in list *)\
+let add_to_list (n : int) (xs : int list) : int list =\
+	let addn x = x + n in\
+	map addon xs\
+\
+or\
+let add_to_list (n : int) (xs : int list) : int list =\
+	map (fun x -> x + n) xs\
+//fun is function\
+\
+\
+let square_and_add : int -> int -> int =\
+	fun (x : int) ->\
+		fun (y : int) ->\
+			x * x + y\
+\
+int -> int -> int same as int -> (int -> int)\
+\
+functions in ocaml are curried\
+\
+every function has 1 parameter, but can return another function that takes another parameter.\
+\
+\
+let inc_list ( xs : int list ) : int list =\
+	map (fun x -> x + 1) xs\
+are basically lambdas ;/\
+\
+\
+let inc_list xs = map (fun x -> x + 1) xs\
+or\
+let inc_list = map (fun x -> x + 1)\
+\
+let flip f x y = f y x\
+let dec_list = map (flip (-) 1)\
+let add_to_list (n : int) = map ((+) n)\
+\
+(* add up ints in list *)\
+let rec sum (xs : int list) : int =\
+	match xs with\
+	| [] -> 0\
+	| x :: xs\'92 -> x + sum xs\'92\
+\
+\
+(* to fold a function over a list, right-associatively *)\
+let rec fold_right ( f : int -> int -> int) (z : int) (xs : int list) : int =\
+	match xs with\
+	| [] -> z\
+	| x :: xs\'92 -> f x (fold_right f z xs\'92)\
+\
+let sum xs = fold_right (+) 0 xs\
+or\
+let sum = fold_right (+) 0\
+^ you can get rid of the xs b/c it\'92s a partial application\
+\
+\
+let incf = (+.) 1\
+\
+(+) is an int -> int -> int\
+(+) 3 4\
+results in int 7\
+\
+\
+let strings_of_ints (xs : int list) : string list =\
+	match xs with\
+	| [] -> []\
+	| x :: xs\'92 -> string_of_int x :: string_of_ints xs\'92\
+//motherfucking apostophe using bastard who uses them to almost fucking deliberately confuse his students fuck\
+\
+\
+let rec map f (f : \'91a -> \'91b) (xs : \'91a list) : \'91b list =\
+	match xs with\
+	| [] -> []\
+	| x :: xs\'92 -> f x :: map f xs\'92\
+cuz \'91a \'91b (alpha beta) are not defined types, can move between types\
+\
+let strings_of_ints (xs : int list) : string list =\
+	map string_of_list xs\
+\
+\
+(* keep only positive ints *)\
+let rec keep_positive (xs : int list) : int list =\
+	match xs with\
+	| [] -> []\
+	| x :: xs\'92 -> let rest = keep_positive xs\'92 in\
+				if x > 0 then x:: rest\
+				else rest\
+\
+(* to fold a function over a list, right asssociatively *)\
+let rec fold_right (f : \'91a -> \'91b -> \'91b) (z : \'91b) (xs : \'91a list) : \'91b =\
+	match xs with\
+	| [] -> z\
+	| x :: xs\'92 -> f x (fold_right f z xs\'92)\
+\
+\'91a -> \'91b -> \'91b\
+operation combines one lement of list (\'91a) with an additional type (WTF?FWEOIFJWEO:IF b\'92)\
+f is way of taking element of type \'91a and folding it with type \'91b with the rest of the list\
+\
+\
+(*\
+	fold right f z (a :: (b :: (c :: [] )))\
+	=\
+		( f a	(f b	(f c   z ))\
+\
+	w/ initial value z\
+	replaces empty list with z, and replaces each cons with function f\
+\
+*)\
+\
+\
+\
+\
+\
+let keep_positive (xs : int list) : int list =\
+	fold_right (fun x rest -> if x > 0 then x :: rest else rest) [] xs\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+section 2/10/14\
+\
+Defining types:\
+type color = Red | Yellow | Other of string\
+	(defines as type string. Could use tuples like string * string to take 2 strings at once, or lists)\
+	type favorite = Color of color | Movie of String | Tvshow of string | letter of char | Number of float\
+let (x : favorite) = Color ( Other \'93blue\'94) \
+	//constructs a Color of Other \'93blue\'94, then assigns that to be x, a favorite\
+type tree = Leaf | Branch of tree * int * tree\
+	
+\b pset 4
+\b0 : types can be 
+\b recursive
+\b0 , as tree is\
+let prob1a : favorite list = [ Color ( Other \'93 chartreuse\'94) ; Number 5.0 ]\
+	Other \'93cha\'94 is constructor for type Color\
+\
+\
+let rec favmovie ( lst : favorite list) : string option =\
+	match lst with\
+	| [] -> None\
+	| hd :: t1 ->\
+		match hd with\
+		| Movie m -> Some m\
+		| _ -> favmovie t1\
+;;\
+OR BETTER\'85\
+\
+\'85	match lst with\
+	| [] -> None\
+	| (movie m) :: t1 -> Some m\
+	| _ :: t1 -> favmovie t1\
+\
+\
+let rec harvardpride (lst : favorite list ) : bool =\
+	match lst with\
+	| [] -> false\
+	| (Color \'93Crimson\'94) :: t1 -> true\
+	| _ :: t1 -> harvardpride t1\
+\
+let rec harvardfilter ( lst : favorite list list) : favorite list list =\
+	match lst with\
+	| [[]] -> [[]]\
+	| hd :: t1 ->\
+		(optional variable: let final_list = harvardfilter t1 in)\
+		if harvardpride hd\
+		then hd :: harvardfilter t1\
+		else harvardfilter t1\
+\
+\
+full def: let harvardfilter\'92 = List.filter ~f: (fun x -> harvardpride x) lst\
+	x represents any given element of the list. if it returns true, included.\
+let harvardfilter\'92 = List.filter ~f:harvardpride lst\
+let harvardfilter\'92 = List.filter ~f:harvardpride\
+	function that takes a fav list list and returns a fav list list\
+\
+screw labels (the ~f: thing)\
+necessary only this year\'85cuz using std lib\
+\
+for algebraic data types, need constructors\
+let realnum = Int of int | Float of float\
+\
+type: lets you find types with constructors or type year=int\
+\
+\
+\
+\
+let realequal (a: realnum) (b:realnum) : bool =\
+	match a, b with\
+	| (Int g, Float h) -> float g = h\
+	| (Float g, Int h) -> float h = g\
+	| g, h -> g = h\
+\
+	can simplify? moar?\
+	| Int g, Float h\
+	| Float h, Int g -> float g = h\
+	| Int g, Int h\
+	| Float g, Float h -> g = h\
+\
+\
+\
+\
+type expr = Value of bool | Not of expr | And of expr * expr | Or of expr * expr\
+	recursive!\
+\
+let rec eval (a:expr) : bool =\
+	match a with\
+	| Value v -> v\
+	| Not e -> not (eval e)\
+	| And (e1, e2) -> eval e1 && eval e2\
+	| Or (e1, e2) -> eval e1 || eval e2\
+\
+\
+\
+polymorphism?\
+\
+let min_option ( x : int option) (y : int option) : int option =\
+	match x, y with\
+	| None, None -> None\
+	| Some x, None -> Some x\'92\
+	| None, Some y -> Some y\'92\
+	| Some x\'92, Some y\'92 -> Some (if x\'92 < y\'92 then x\'92 else y\'92)\
+\
+	cleaner\
+	| None, z\
+	| z, None -> z\
+	| Some x\'92, Some y\'92 -> Some (min x\'92 y\'92)\
+		// min is already a function\
+\
+\
+max_option would be very similar, but max instead of min\
+\
+so\'85\
+let calc_option (f : \'91a -> \'91a -> \'91a) (x : \'91a option) ( y : \'91a option) : \'91a option =\
+	match x, y with\
+	| None, z\
+	| z, None -> z\
+	| Some x\'92, Some y\'92 -> Some (f x\'92 y\'92)\
+\
+let min_option_2 : int option -> int option -> int option =\
+	calc_option min\
+^sets equal to a function that takes two int options, returns one\
+^min \'91a -> \'91a -> \'91a\
+\
+OR BETTER\
+let min_otpion_2 x y : int option =\
+	calc_option min x y\
+^retains strong polymorphism b/c other one would be int option. Even if other was \'91a option, would be weakly poly b/c set immediately once passed forever\
+\
+\
+let and_option =\
+	calc_option (&&)\
+\
+\
+\
+
+\fs36 \
+
+\b map and fold\
+
+\b0\fs24 let fold_right f u xs =\
+	// function, base case, list\
+	match xs with\
+	| [] -> u\
+	| hd::t1 -> f hd (fold_right f u xs);;\
+fold_right ( fun x y -> (+) x y)\
+	// y represents already recursed list)\
+\
+\
+\
+\
+1. name iif use fold right, map, of filater to impement\
+\
+let length : int =\
+	/???\
+if pass in empty length, last case is zero\
+\
+\
+\
+let times_3 (lst : int list) : int list\
+	List.map ~f:(( * ) 3) lst\
+let times_3\'92 lst : int list =\
+	List.fold_right ~f: (fun x y -> 3 * x :: y) ~init : [] list\
+\
+let map f2 lst=\
+	List.fold_right ~f: (fun x y -> \
+\
+???\
+\
+\
+\
+let times_x (x : int) (lst : int list) : int list =\
+	List.map ~f(fun y ->y * x) lst\
+	or: List.map ~f( ( * ) x) lst\
+\
+\
+let times3_shorter = times_x 3\
+\
+\
+\
+2/18/14\
+skipped a bunch of lectures\
+with these glasses cant\'92 see shit capt\
+\
+List.find is useful\
+url set union???\
+abstraction boundaries important\
+\
+don\'92t rely on info from abstract data type\
+\
+\
+\
+Midterm review\
+1) higher order functions\
+2) type-checking\
+3) partial application/currying\
+4) defining types (records)\
+\
+map\
+filter\
+fold_right\
+\
+\
+\
+let rec map f lst =\
+  match lst with\
+  | [] -> []\
+  | hd :: t1 -> f hd :: map f t1\
+;;\
+\
+\
+\
+\
+let rec map (f : \'91a -> \'91a) (lst : \'91a list) : \'91b list =\
+  match lst with\
+  | [] -> []\
+  | hd :: t1 -> f hd :: map f t1\
+;;\
+\
+map f(fun x -> x + 1) [1;2;3] will add 1 to each\
+\
+let rec filter (pred : \'91a -> bool) (lst : \'91a list) : \'91a list =\
+  match lst with\
+  | [] -> []\
+  | hd :: t1 -> if pred hd then hd :: (filter t1) else filter t1\
+;;\
+\
+\
+let rec fold_right (f : \'91a -> \'91b -> \'91b) (u : \'91b) (lst : \'91a list) : \'91b =\
+  match lst with\
+  | [] -> u\
+  | hd :: t1 -> f hd (fold_right f u t1)\
+;;\
+\
+fold_right (fun x y -> x + 1) 0 ([1;2;3] = 2\
+\
+in empty init case, x=0\
+\
+\
+let f x = (fun y -> x + y)\
+currying: ocaml. multivar functions implemented by currying\
+\
+\
+f 4  ==>  (fun y -> 4 + y)\
+\
+let add_4 = f 4;;\
+\
+\
+\
+\
+1a.\
+\
+let f = fun x y -> x - y in\
+let f = f 10 in -> let f = (fun x (fun y -> x - y)) 10 in -> (fun y -> 10 - y ) in\
+f 5 \'97> (fun y -> 10 - y) 5 -> 10 - 5 -> 10\
+\
+\
+\
+let f x y = x + y in\
+let a = [1;2;3;4] in\
+let b = List.map ~f:f a in \'97>\
+				let b = List.map ~f: (fun x y -> x + y) [1;2;3;4] in\
+\
+[f 1; f 2; f 3; f 4]\
+[(fun x y -> x + y) 1; (fun x y -> x + y) 2; (fun x y -> x + y) 3; (fun x y -> x + y) 4]\
+[ (fun y -> 1 + y) ; fun y -> 2 + y) ; fun y -> 3 + y) ; fun y -> 4 + y) ]\
+let ( b : (int -> int) list ) = thefuns in\
+\
+List.map ~f: (fun g -> g 2) b\
+\
+[ (fun g -> g 2) (fun y -> 1 + y) \'85]\
+[1 + 2; 2 + 2; 3 + 2; 4 + 2]\
+\
+\
+\
+1f\
+\
+let inc x = x + 1 in\
+let square x = x * x in\
+let fs = [inc ; square ]\
+let rec f t =\
+  match t with\
+  | [] -> (fun x -> x)\
+  | a::b -> (fun x -> a (f b x)) in\
+  f fs 3\
+\
+fs x = [x + 1; x * x]\
+\
+f [inc ; square] 3\
+(fun x -> inc ( f [square] x)) 3\
+(fun x -> inc ( fun x -> square (fun x -> x) x) 3\
+(fun x -> inc (fun x -> square x) 3\
+fun 3 -> inc (fun 3 -> square 3)\
+fun 3 -> inc (square 3)\
+fun 3 -> inc (9)\
+fun 3 -> 10\
+10\
+\
+\
+\
+\
+\
+2/24/14 section notes\
+stack: FILO first in last out\
+\
+\
+//can\'92t modify stack so must return new stack t1\
+let take (st : \'91a stack) : (\'91a * \'91a stack) option =\
+	match st with\
+	| [] -> None\
+	| hd :: t1 -> Some (hd, t1)\
+;;\
+\
+let put = (st : \'91a quene) (v : \'91a) : \'91a queue =\
+  st @ [v]\
+;;\
+\
+\
+STACK IMPLEMENTATION\
+module Stack =\
+struct\
+  type \'91a t = \'91a list\
+  let emp : \'91a t = []\
+  let put (st : \'91a stack) (v : \'91a) : \'91a stack =\
+	v :: st\
+  let take (st : \'91a stack) : (\'91a * \'91a queue) option =\
+  	match st with\
+	| [] -> None\
+	| hd :: t1 -> Some (hd, t1)\
+;;\
+\
+module Queue =\
+struct\
+  type \'91a t = \'91a list\
+  let emp : \'91a t = []\
+  let put (st : \'91a queue) (v : \'91a) : \'91a queue =\
+	v :: st\
+  let take (st : \'91a queue) : (\'91a * \'91a queue) option =\
+  	match st with\
+	| [] -> None\
+	| hd :: t1 -> Some (hd, t1)\
+;;\
+\
+So Queue.put?\
+\
+List is also just a module (List.fold_right, List.map)\
+\
+Can use \'91a list functions on anything that is a list Module?\
+\
+\
+BADNESS\
+Queue.take (Stack.put Queue.emp 5)\
+mixing modules. Technically will work, but still bad policy\
+\
+\
+module type SCHEDULER =\
+sig\
+  type \'91a t\
+  val emp : \'91a t\
+  val put : \'91a t -> \'91a -> \'91a t\
+  val etc.l\'85\
+end\
+\
+\
+Signature: basically a type for modules\
+(real explanation: Signature is the protocol for modules. Has interface, but other must implement)\
+\
+module SStack: SCHEDULER =\
+\'85\
+\
+Signatures let the previously defined BADNESS not happen. Seals unique types, says what module must be defining.\
+don\'92t use arrays in ocaml b/c ocaml is fucking retarded\
+\
+compiler only looks at a module\'92s signature\
+\
+TREES LOL\
+\
+functors: takes module as argument, then can implement new module with that old module.\
+\
+let traverse_df (tr : tree) : unit =\
+  let rec traverse\'85\
+see sec notes\
+\
+\
+traversing a tree:\
+depth verse says: follow children until end, then backtrack, repeat until all children.\
+	1\
+      2        3\
+   4    5   6   8\
+would go 4, 5, 2, 6, 8, 3, 1\
+\
+when visit node, last children put in are the first ones visited (LIFO)\
+STACK\
+\
+\
+breadth first says: follow all children?\
+would go : 1 2 3 4 5 6 8\
+[1] [2;3] [4;5;7;8]\
+	QUEUE\
+\
+\
+\
+\
+module Traverse =\
+   functor (S : SCHEDULER) ->\
+structpsrr\
+  let traverse (tr : tree) : unit =\
+    let traverse_help\
+\
+\
+???\
+\
+only know S has put, take, empty b/c S has SCHEDULER as signature\
+in pure functional code, unit is worthless. but we have modificution statementss\
+SCHEDULER is all caps b/c SIGS ARE ALL CAPS\
+\
+traverse_help (S.put S.empty tr)\
+\
+;;efwef\'85\
+traverse_help (S.put (S.put rest l)) taking/putting from abstract data structure\
+\
+module BreadthFirstTraversal\
+\
+\
+module IntSet= Set.Make (IntElt)\
+Set module defines Make functor that takes IntEls\'92\'92single value in module\
+\
+let set_of_list (ls : int list) : IntSet.t =\
+  List.fold_right ~f:(fun x set -> IntSet.add set x) ~init:IntSet.empty ls\
+\
+let count_unique (ls : int list) : int =\
+  IntSet.length (set_of_list ls)\
+\
+sum_unique (ls : int list) : int =\
+  IntSet.fold ~f:(+) ~init:0 (set_of_list ls)\
+\
+various data structures define their own fold methods. Using it on an IntSet not a list. very similar\
+\
+\
+module Int Elt : Set.Elt with type t = int  =\
+struct\
+  type t = int\
+  let compare = compare ()\
+\
+\
+\
+lmodule \
+\
+\
+BINARY HEAPS\
+I woke up from my halfnap halfslumber\
+children are related by parents\
+min heap: children are bigger than parents (to be used in pset4)\
+\
+binary heaps are algorithmically interesting\
+pset: use heaps to implement fast sorting\
+nlogn for both runtime\
+\
+odd tree/even tree\
+even tree: if both sides/children have equal children count\
+odd tree: left side has one more child than right side\
+if adding to even tree, add to left.\
+if adding to add tree, add to right?\
+\
+to fix a tree out of order like\
+   5\
+1    6\
+bubble up along so becomes\
+   1\
+5    6\
+\
+propogating up but sometimes must go down too???\
+\
+binary trees should be balanced: distance from root node to all end leaves should be +-1 of eveery other end leaves\
+\
+what does mirror do? mirror function: swap children of a given node\
+\
+\
+\
+\
+\
+2/27/14 lecture\
+\
+matrices\
+are defined over rings, which offer some operations\
+\
+sets wtf?\
+\
+\
+\
+\
+3/10/14 section notes\
+\
+tail calls whops shuld\'92ve paid attention\
+\
+let rec length lst =\
+  match lst with\
+  | [] -> 0\
+  | _::t1 -> 1 + length t1\
+\
+let rec length lst =\
+  let rec length_helper lst acc =\
+  match lst with\
+  | [] -> acc\
+  | _::t1 -> length_helper t1 (acc + 1)\
+  in\
+  length_helper lst 0\
+\
+recursive stack is how moast recursion works\
+\
+base case\
+op\
+op\
+operation\
+\
+order: operation\
+recursively calls op\
+recursively calls op\
+recursively calls base case\
+base case resolves, passes back\
+op resolves, passes back\
+op resolves, passes back\
+operation resolves, returns\
+\
+note: takes lots of stack frames. So can make tail recursive instead for constant # of stack frames\
+\
+let rec generate n acc =\
+  if n = 0 then acc else generate (n-1) (n :: acc)\
+^generates a list\
+\
+using length (if it doesn\'92t use tail recursion) will stack overflow into heap if used on massive list\
+so tail recursion better\
+\
+\
+fold left just goes through the list from first to last, no need to go back and recursively win. So tail recursive?\
+\
+\
+Big O\
+Merge sort\
+\
+\
+\
+foldl = fold left. touches each element once. So O(n) time\
+\
+\
+\
+merge sort\
+\
+T(n) = kn + 2T(n/2) +              \
+                        ^ cuz 2 rec calls over lists\
+aka n logn\
+occurance relation lets you get O(n)\
+\
+quicksort\
+T(n) = T(n-1) + Kn + C + T(0)\
+C and T(0) are basically constants\
+So T(n) = T(n-1) + Kn\
+cuz only care about linear terms. Screw constants\
+K(n) + K(n-1) + K(n-2) \'85. = K(n + n-1 + n-2 \'85) = (K/2) * n^2\
+So O(n^2)\
+\
+O(n^2), but on average it\'92s nlogn\
+\
+\
+\
+first part of pagerank is easy extracredit\
+\
+chance that a random server lands on the page? pages with fewer links give more importance to those links?\
+iterative algorithm. 10 pages, each page given 1/10 of importance of linker.\
+\
+alpha ~.15 is pretty good. Means 85% chance that you follow a link on the page.\
+any page always links to itself\
+\
+each page assigned equal prob of being breached. Then run thru all the pages.\
+\
+\
+any page pi that cares to \'85????\
+\
+\
+a/N + (1-a)(sigma / pl)\
+\
+where (sngma / pl) = (currentweightofpage_thatlinksto tthatpge\
+\
+\
+\
+high weight/# of references or links made\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+section notes 3/24/14\
+\
+\pard\pardeftab720
+
+\f1 \cf0 (* CS51 Spring 2013\
+Section 6 Notes\
+Week of 04/01/13 *)\
+\
+
+\f2\b ref as reference
+\f1\b0 \
+\
+let y = ref \'93hello\'94;;\
+\
+:= operator to change what\'92s actually in a box\
+let x = ref 4\
+x := 5;;\
+!x;; results printing \'93int = 5\'94\
+! is bang: like *.\
+\
+\
+let x = ref 3\
+let y = x;;\
+x := 4;;\
+!y ;; results in int = 4\
+\
+let x = ref 7\
+x := 5;;\
+!y ;; still results in int = 4?\
+\
+\
+\
+\
+\
+(******************  Part 1: Mutation and State  ******************)\
+(* So far in this course, we have worked almost exclusively with the\
+ * subset of ML that is functional (with the exceptions of exceptions\
+ * (sorry) and printing). We have traded iteration counters for\
+ * recursion, among other things.\
+ *\
+ * Recall from lecture that, while there are plenty of\
+ * reasons to sing the praises of functional programming, eventually\
+ * we need side-effects. After all, we write programs in order to\
+ * change the world, and any change to the world is necessarily a side-effect\
+ * of functional computation.\
+ *\
+ * The basic way of allowing for mutable state in ML is to use references.\
+ * To recap from lecture:\
+ *\
+ * New type: t ref\
+ * -> Think of it as a pointer to a box that holds a t value.\
+ * -> The pointer can be shared.\
+ * -> The contents of the box can be read or written.\
+ *\
+ * To create a fresh box: ref 42\
+ * -> allocates a new box, initializes its contents to 42, and returns a\
+ *    pointer to that box.\
+ *\
+ * To read the contents: !r\
+ * -> If r points to a box containing 42, then !r returns 42.\
+ * -> similar to *r in C\
+ *\
+ * To write the contents: r := 42\
+ * -> updates the box that r points to so that it contains 42.\
+ * -> similar to *r = 42 in C\
+ *\
+ * Note that:\
+ * Now that we are updating state, sometimes we will want to have a sequence\
+ * of expressions, but we will only care about the value of the last\
+ * expression. We accomplish this with semicolons.\
+ * For example, (a := 5 + b; !a) would update the "box" that a points to\
+ * to have a value of 5 more than the value of b, and then evaluate\
+ * to this same value. You should only use semicolons when the value on the\
+ * left is of type unit.\
+ *\
+ *)\
+\
+(* 1.1: Vocabulary Check\
+ *\
+ * What is the name for something that becomes a problem in the presense of\
+ * references and mutation, defined by Wikipedia as "situation in which\
+ * a data location in memory can be accessed through different symbolic\
+ * names in the program"?\
+\
+   aliasing (never used lol). \
+\
+ *)\
+\
+\
+???? let z = ref (fun x -> \'85)\
+\
+(* 1.2: 42 Exercises *)\
+(* Replace ??? so that the expression evaluates to 42. *)\
+(* 1.2.1 *)\
+let f = (fun () -> [ref (fun _ -> 42)]) in\
+  match f () with\
+    | [] -> 12\
+    | a::b -> !a 21\
+;;\
+\
+
+\f2\b let y = x := !x + 1; !x;;\
+returns val y : int = 4\
+wtf is happening
+\f1\b0 \
+\
+(* 1.2.2 *)\
+let f = \
+	let x = ref 21 in\
+	fun () ->\
+	let tmp = !x in\
+	x := !x * 2; tmp\
+	(* changes x to 42, but then returns the value it was before (21), so when it\'92s called again, x is changed to 84 but returns the value it was before (42) *)\
+	) in\
+  if f () = 42 then 21 else f ()\
+;;\
+\
+(* 1.3: Call Counter\
+ * Write call_counter : ('a -> 'b) -> (('a->'b)*int ref)\
+ * The second component of the returned pair should\
+ * contain the number of times the first component has\
+ * been called. *)\
+let call_counter (f : 'a -> 'b) : (('a -> 'b) * int ref) =\
+	let x = ref 0 in\
+	((fun y -> x := !x + 1; f y), x);;\
+\
+\
+\
+;;\
+\
+let (f,r) = call_counter ( (+) 1 );;\
+let x = f 3 should result in 4 (result)\
+!r should result in 1 (reference called)\
+let x = f 8 should result in 9 (result)\
+!r should result in 2 (reference called twice)\
+\
+(* 1.4: Aliasing\
+ * What does x evaluate to?\
+ *)\
+\
+let x =\
+  let r = ref 1 in\
+  let rs = [r;r;r] in\
+  List.map ~f:(fun x -> x := (!x) + 1; !x) rs\
+\
+
+\f2\b they all point to the same thing: ref 1. When ref 1 is changed to ref 2,
+\f1\b0 \
+[2;3;4]\
+\
+\
+\
+\
+(************************* Part 2: Streams ***************************)\
+(* Recall our definition of the stream datatype, and some\
+ * basic operations we defined on streams.\
+	streams: \'93infinite\'94 list\
+ *)\
+\
+type 'a str = Cons of 'a * ('a stream)\
+and 'a stream = unit -> 'a str\
+\
+let z : int stream = fun () -> Cons(1, fun () -> Cons (2, fun () -> \'85))\
+as soon as hit fun () -> unit, stop evaluating\
+let head ( s : \'91a stream) : \'91a = let Cons(h,_) = s () in h ;; //used to pull h out of the stream\
+let  tail (s : \'91a stream) : \'91a stream = let Cons (_, t) = s () in t ;;\
+let rec map (f: \'91a->\'92b) (s : \'91a stream) : \'91b stream =\
+  fun () -> Cons(f (head s), map f (tail s)) ;;  //apply function to head and tail. map is a fun, so stops the infinite stream.\
+//as soon as meet a fun anticipating more values, stop until rest of arguments are applied for rest of parent function?)\
+//streams used in music part of pset. Use to represent natural numbers\
+\
+\
+let head (s : 'a stream) : 'a =\
+  let Cons(h,_) = s () in h\
+;;\
+\
+let tail (s : 'a stream) : 'a stream =\
+  let Cons(_,t) = s () in t\
+;;\
+\
+let rec map (f : 'a->'b) (s : 'a stream) : 'b stream =\
+  fun () -> Cons(f (head s), map f (tail s))\
+;;\
+\
+let rec filter p s =\
+  if p (head s) then\
+    (fun () -> (Cons (head s, filter p (tail s))))\
+  else (filter p (tail s))\
+;;\
+\
+//if true, include string in output stream. Just returns the function but doesn\'92t evaluate the function (fun () -> Cons (head\'85)). If not, keep going and potential infinite loop.\
+\
+(* 2.1 *)\
+(* What happens if p doesn't match anything in the stream? *)\
+\
+\
+(* Here are some useful streams: *)\
+let rec ones =\
+  fun () -> Cons(1, ones)\
+  same as fun () -> Cons(1, fun () -> Cons(1, fun () -> Cons(1, fun()->\'85\
+;;\
+\
+let rec nats =\
+  fun () -> Cons(0, map (fun x -> x + 1) nats)\
+;;\
+\
+//passing in a unit will cause the function to evaluate. If not, will just remain function.\
+//streams would be impossible w/o lazy evaluation\
+\
+(* 2.2 *)\
+(* Define a stream that contains all integer multiples of 3. *)\
+\
+let mult3 = map (( * ) 3) nats\
+\
+\
+;;\
+\
+(* 2.3 *)\
+(* Write a function that takes an integer n and a stream\
+ * and returns a list containing the first n elements of the stream. *)\
+let rec first (n : int) (s : 'a stream) : 'a list =\
+if n = 0 then [] else (head s :: (first n-1 (tail s))\
+\
+;;\
+\
+(* 2.4.1 *)\
+(* Define a function alternate that takes the negative of every other\
+ * item in a stream, starting with the second. e.g., 1,1,1,1... would\
+ * become 1,-1,1,-1,... *)\
+let rec alternate (s : float stream) : float stream =\
+  let x = ref 0 in\
+  let (_,a) = s () in\
+  if !x = 0\
+  then x:=1;\
+\
+\
+  fun () -> Cons(head s, alternate (map (~-.) (tail s))\
+;;\
+\
+let z = alternate (map float ones);;\
+first 10 z;;\
+\
+(* 2.4.2 *)\
+(* Another way to write alternate, without using map? *)\
+let rec alternate' (s : float stream) : float stream =\
+\
+  fun () -> Cons(head s, fun() -> Cons( -1. *. head (tail s), alternate\'92 (tail (tail s))))\
+\
+\
+;;\
+\
+let z = alternate \'91 (map float nats);;\
+first 10 z\
+\
+(* 2.5 *)\
+(* Define a stream that contains the alternating harmonic sequence, whose\
+ * nth term is (-1)^(n+1)(1/n), e.g., 1, -1/2, 1/3, -1/4...\
+ * You may use nats. *)\
+let altharm : float stream =\
+\
+;;\
+\
+(* 2.6 *)\
+(* Write a function streammax that takes two streams and returns\
+a new stream of the maximum of the first elements of s1 and s2, followed\
+by the maximum of the second element of each, and so on. (For example,\
+s1 and s2 might represent simultaneous rolls of two dice, and we want a\
+stream representing the maximum in each pair of rolls.) *)\
+\
+let rec streammax (s1 : int stream) (s2 : int stream) : int stream =\
+\
+\
+\
+;;\
+\
+(* 2.7 - Collatz Conjecture *)\
+(* Consider the following procedure:\
+ * Take an integer. If the integer is odd, multiply by 3 and add 1.\
+ * If it is even, divide it by 2. Repeat this procedure.\
+ * The Collatz Conjecture states that if this procedure is repeated, starting\
+ * with any positive integer, it will eventually reach 1.\
+ *\
+ * For more information, see this scholarly article:\
+ * http://en.wikipedia.org/wiki/Collatz_conjecture, or this scholarly\
+ * webcomic: http://www.xkcd.com/710/. *)\
+\
+(* 2.7.1 *)\
+(* Write a function, collatz, that takes an integer and returns an int\
+ * stream with the integers that result from performing the above process.\
+ * Since streams must be infinite according to our definition, once (or if)\
+ * 1 is reached, the rest of the stream should be ones. *)\
+\
+let even x = (x mod 2 = 0);;\
+\
+let rec collatz (n : int) : int stream =\
+\
+\
+\
+\
+\
+\
+;;\
+\
+(* 2.7.2 *)\
+(* We can define a stream of streams with the collatz streams starting\
+ * with each natural number. *)\
+\
+let collatzes = map collatz nats;;\
+\
+(* And a predicate that determines if a stream contains 1. *)\
+let rec hasone s =\
+  (head s = 1) || (hasone (tail s))\
+;;\
+\
+(* Now consider the following definition:\
+ *\
+ * let collatzproof = filter (fun s -> not (hasone s)) collatzes;;\
+ *\
+ * collatzproof is then a stream of streams which contains any collatz stream\
+ * that does not contain the number 1. If the stream collatzproof has an\
+ * element, the Collatz conjecture is false. If it is empty, the conjecture\
+ * is true. *)\
+\
+(* Why can't we use this to prove or disprove the Collatz conjecture? *)\
+\
+\
+\
+\
+(************************* Part 3: Memoization ***************************)\
+(* Every time we take elements of a stream, they must be recomputed. This\
+ * results in extra processing time. A solution to this is memoization. *)\
+\
+(* Exercise 3.1 *)\
+(* Consider the following stream. *)\
+let rec randstream =\
+  (fun () -> let random = Random.int(100) in Cons(random, randstream));;\
+let a = head randstream;;\
+let b = head randstream;;\
+(* Are a and b necessarily equal? Why or why not? What if we use\
+ * memoized streams? *)\
+//not equal b/c every time evaluate head of randstream, creates new stream and grabs new head\
+\
+\
+\
+\
+\
+(* Exercise 3.2 *)\
+(* What's the tradeoff? When might we might not want to memoize? *)\
+On pset using lazy module (think of: fun () -> x := x + 1. fun units delay the evaluation until later. Lazy does the same thing)\
+\
+let x = ref 3;;\
+let y = lazy (x := !x + 1);;\
+!x still = 3 b/c y hasn\'92t been evaluated yet\
+\
+Lazy.force unlazifies lazy\
+Lazy.force y;;\
+!x results = 4\
+let z = fun () -> (x := !x + 1);;\
+\
+Lazy values are memoized. Won\'92t recalculate the value of y\'85 once laziness forced?\
+combo of ref and fun unit\
+Once Lazy.force is done, evaluates the lazy(stuffhere) to unit. Can\'92t Lazy.force it again. not the increment function again.\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+3/25/14 lecture notes\
+\
+nothing\
+\
+3/31/14 section notes\
+event stuff\
+EXAM next Tuesday\
+Pset is partnered, due next Friday\
+But next week will have crapton: exam, pset, final project specs.\
+\
+\
+(* CS51\
+ * Section 7 - Object-Oriented Programming \
+ * Week of 03/31/14 *)\
+\
+open Core.Std\
+\
+(******************************************************************************)\
+(*          PART 0 : Flatland                                                 *)\
+(******************************************************************************)\
+(*\
+ * Consider the following motivating problem:\
+ * Suppose we are in a world called Flatland where there are many shapes.\
+ * In particular, we want: \
+ *    * all shapes to have some notion of area, so that when\
+ *      we meet any new shape, we can easily calculate the shape's area. \
+ *    * to support many different types of shapes. \
+ * \
+ * How can we solve this problem?\
+ * \
+ * We can solve this problem in two ways:\
+ * 1) Using algebraic data types\
+ * 2) Using object-oriented programming\
+ * \
+ * We will discuss reasons why the method (1) is not ideal in this case. *)\
+\
+(* We first define a point, which we will need later *)\
+type point = float * float   (* x and y coordinate *)\
+\
+(* Method 1 - Algebraic data types\
+ * We first define what a shape is: *)\
+\
+type shape_adt =\
+  | Square of point * float        (* lower-left corner and side length *)\
+  | Rect of point * float * float  (* lower-left corner and width and height *)\
+  | Circle of point * float        (* center and radius *)\
+\
+\
+(* Now we define the area function that takes a shape and computes its area *)\
+let area_adt (s: shape_adt) : float =\
+  match s with\
+    | Square(_,s) -> s *. s\
+    | Rect(_,w,h) -> w *. h\
+    | Circle(_,r) -> 3.14159 *. r *. r\
+    | Triange(_,b,h) -> .5 *. b *. h\
+//would be annoying to get match cases for everything if multiple shapes\
+//also why | _ -> (which is a catchall) is discouraged b/c new shapes bug,\
+  don\'92t show a compiler failure and just return bad results\
+\
+(* Calculate the sum of the area of all shapes in the list *)\
+let list_area_adt (lst : shape_adt list) : float =\
+  List.fold_right ~f:(fun x r -> r +. area_adt x) ~init:0. lst\
+\
+let l1 = [Square((0.,0.),4.); Rect((2.,3.),1.,2.); Circle((5.,5.),2.)] ;;\
+let a = list_area_adt l1 ;;\
+\
+\
+\
+(* Why is this not ideal?\
+ *\
+ * Suppose now you are a traveler in Flatland and you meet a new shape, called\
+ * Triangle. What must change in your code to support this new shape?\
+ * \
+ * The type definition of shape needs to change to include Triangle:\
+ * \
+ * type shape_adt = \
+ *   | ...\
+ *   | Triangle of point * point * point\
+ * \
+ * and the area function (or rather, any function that used a match statement on\
+ * a shape) will need to change to include the Triangle case:\
+ * \
+ * let area (s: shape_adt) : float =\
+ *   match s with\
+ *     | ...\
+ *     | Triangle ... -> ...\
+ *\
+ * Thus, every time we wish to extend our world of shapes, we break A LOT of\
+ * code. In real production code, we often don't have access to certain pieces\
+ * of code (e.g. the type definitions, the area function), so changing code\
+ * like this to add new functionality might not even be possible. \
+ *\
+ * It would be a comparably bad idea to attempt to declare all possible shapes\
+ * up front.  We would have to define dinosaur shapes because it is a possible\
+ * shape, even if we never plan on using it.\
+\
+ * Using algebraic data types gives us a **closed** definition for all possible\
+ * types in this world; this means that we must know all possible variants at\
+ * the site of type definition.   * \
+ *\
+ * How can we fix this issue? Use Object-Oriented Programming! *)\
+\
+\
+\
+(******************************************************************************)\
+(*          PART 1 : Interfaces, Classes, Objects                             *)\
+(******************************************************************************)\
+\
+\
+(* We create a **class type (interface)**. Interfaces define a new type and\
+ * define **methods** for us to interact with this new type. \
+ * \
+ * Once we have defined this class type, then we can always create new shapes\
+ * by defining **classes* that implement this shape interface. This gives us an\
+ * open world of shapes! We have thrown in a few more methods to keep things\
+ * fun. *)\
+class type shape =\
+object\
+  (* return the area on this shape *)\
+  method area : float\
+\
+  (* return the lower-left corner and the upper-right corner of the \
+   * bounding box on this shape *)\
+  method bounding_box : point * point\
+\
+  (* We translate this shape by the (x,y) in point *)\
+  method translate : point -> unit\
+\
+  (* We dilate this shape *)\
+  method scale : float -> unit\
+end\
+\
+(* We want to create a type hierarchy that looks like this:\
+\
+                        +------------+\
+                        |            |\
+                        |  shape (I) |\
+                        |            |\
+                        +--^---^---^-+\
+                           |   |   |\
+              implements   |   |   | implements\
+            +--------------+   |   +-------------+\
+            |                  |                 |\
+            |       implements |                 |\
+            |                  |                 |\
+     +------+------+     +-----+------+   +------+------+\
+     |             |     |            |   |             |\
+     |  square (C) |     | rect (C)   |   | circle (C)  |\
+     |             |     |            |   |             |\
+     +-------------+     +------------+   +-------------+\
+\
+ * An 'I' denotes a class type (interface) and a C denotes a concrete\
+ * implementation. Concrete classes implement an interface class type (denoted\
+ * by an arrow with implements *)\
+   \
+\
+(* We create a **class** rect that implements the class type (interface) shape.\
+ * \
+ * A class is a specification for how to build objects (think of a class like a\
+ * blueprint, and an object of this class as a specific building built using \
+ * that blueprint). Classes include:\
+ *   * definitions of **instance variables** and **methods**\
+ *        each object (instance) of a class has its own copy of instance\
+ *        variables\
+ *   * information on how to construct & initialize objects\
+ *   * scope information about what to hold private \
+ * \
+ * Here, the arguments to rect represent **constructor** arguments--values\
+ * we need to initialize our object.\
+ * \
+ * The colon represents that the rect class has type shape (meaning\
+ * that rect implements the shape interface). \
+ *)\
+class rect (p: point) (w: float) (h: float) : shape =\
+(* the 'this' in parenthesis is the name of the object that has been\
+ * instantiated with the class.  For example, in defining the functionality of\
+ * area for a square, we may access the bounding box of the square by calling\
+ * this#bounding_box *)\
+object (this)\
+// ^ can just get rid of \'93(this)\'94. but also means wouldn\'92t be able to call any other object cuz \'93this\'94 refers to the object.\
+// # is used for calling methods (why the fuck not dots? cuz fuck ocaml)\
+// . is for modules and records (screw ocaml)\
+// can only use \'93this\'94 inside of the object. toerhwise would need like rec1#boundingbox\
+\
+\
+\
+  (* These are the **instance variables** of objects from this class. \
+   * Since we have rect : shape, and because pos, width, and height\
+   * do not show up in the class type interface shape, then pos, width, and\
+   * height will be **private** to objects in this class (i.e. these variables\
+   * can only be accessed from inside this class *)\
+  val mutable pos = p\
+  val mutable width  = w\
+  val mutable height = h\
+\
+    // ^these instance vars are private. If wanted to be publi, would have to go to \'93class type shape =\
+object\'94 and insert \'93\
+	val pos : point\'94\
+\
+  method area : float = width *. height\
+  \
+  method bounding_box : point * point =\
+    let (x,y) = pos in\
+    (pos,(x +. width, y +. height))\
+\
+  (* we destructively update pos to reflect the lower-left corner *)\
+  method translate ((tx,ty) : point) : unit =\
+    let (x,y) = pos in\
+    (* '<-' is update notation for mutable instance variables. *)\
+    pos <- (x +. tx, y +. ty)  \
+\
+// to set mutable var, use (varName <- newVal)\
+\
+  (* we scale a rectangle from the lower-left corner *)\
+  method scale (k: float) : unit =\
+    width <- width *. k;\
+    height <- height *. k\
+end\
+\
+(* Question 1.1: Implement the square class. *)\
+class square (p: point) (s: float) : shape =\
+object (this)\
+\
+	val mutable pos = p\
+	val mutable side = s\
+\
+\
+\
+	method area : float =\
+		side *. side\
+	method scale (k: float) : unit =\
+		side <- side *. k\
+	method translate ((tx,ty) : point) : unit =\
+		let (x,y) = pos in\
+		pos <- (x +. tx, y +. ty)\
+	method bounding_box : point * point =\
+		let (x,y) = pos in\
+		(pos, (x +. side, y +. side))\
+\
+// remember p and s are not necessarily equal to pos and side after pos and side have been modified by say, translate\
+\
+// on pset, have a map. at center is a specific object that won\'92t ever change. so that object is passed as an argument to a bunch of options. so never let that center object be mutable\
+\
+// scale is scale of dimensions\
+\
+end\
+\
+(* Question 1.2: Implement the circle class. *)\
+class circle (c: point) (r: float) : shape =\
+object (this)\
+	\
+	val mutable center = c\
+	val mutable radius = r\
+\
+	method area : float = \
+		3.14 *. radius (NOT r) *. radius\
+	method bounding_box : point * point =\
+		let (x,y) = center in\
+		((x -. radius, y -. radius), (x +. radius, y +. radius))\
+	method translate ((tx,ty) : point ) : unit =\
+		let (x,y) = center in\
+		center <- (x +. tx, y +. ty)\
+	method scale (k : float) : unit =\
+		radius <- radius *. k\
+end\
+\
+\
+\
+(******************************************************************************)\
+(*          PART 2 : Representation, Inheritance                              *)\
+(******************************************************************************)\
+\
+(* First, we define the **representation** of a class to be the way the class\
+ * is implemented. Notice that square and rect have very similar\
+ * representations--they both take a point to represent the lower-left corner, \
+ * and they both take side length(s). A square would essentially be a rectangle\
+ * if we maintain the invariant that width = height. \
+ * \
+ * Thus, we can reimplement square to **inherit** from rectangle and thus use\
+ * rectangle's representation. *)\
+\
+\
+(* New Type Hierarchy:\
+\
+                        +------------+\
+                        |            |\
+                        |  shape (I) |\
+                        |            |\
+                        +--^---^---^-+\
+                           |   |   |\
+              implements   |   |   | implements\
+            +--------------+   |   +-------------+\
+            |                  |                 |\
+            |       implements |                 |\
+            |                  |                 |\
+     +------+------+     +-----+------+   +------+------+\
+     |             |     |            |   |             |\
+     |  square (C) |     | rect (C)   |   | circle (C)  |\
+     |             |     |            |   |             |\
+     +-------------+     +-----^------+   +-------------+\
+                               |\
+                               | inherits\
+                               |\
+                      +--------+-------+\
+                      |                |\
+                      | square_rect (C)|\
+                      |                |\
+                      +----------------+\
+\
+*)\
+\
+class square_rect (p: point) (s: float) : shape =\
+object (this)\
+\
+  (* we inherit from the rect class, and we alias the inherited functionality\
+   * through the name 'super'\
+   * \
+   * By inheriting the representation of rect, we can now call super class's \
+   * methods by doing super#method_name. In fact, if we don't explicitly\
+   * define a required method, the default method will be the super class's\
+   * method. *)\
+  inherit rect p s s as super\
+ \
+  (* now we can easily write the methods in terms of super.\
+   *\
+   * Note that the four lines below are all optional; if we left them out,\
+   * the default will be to use the super class's methods. \
+   *\
+   * It is actually good practice to leave out optional method definitions that\
+   * simply delegate to the super class, but we are showing them so you can see\
+   * what the default behavior looks like.\
+   *\
+   * We can also define methods differently from their default super class\
+   * behavior. For example:\
+   *\
+   * method area = 42. +. super#area\
+   *\
+   * Here, we have **overrided** area's default super implementation to be\
+   * something else. Whenever we inherit from a class, we are allowed \
+   * to override any of the methods. *)\
+  method! area = super#area\
+  method! bounding_box = super#bounding_box\
+  method! translate = super#translate\
+  method! scale = super#scale\
+end\
+\
+// if have exclam and not overriding method, gets a warning.\
+// exclamation mark ! is used to override\
+\
+(* Question 2.1: \
+ * Create a new square class by inheriting from the square_rect class.\
+ * Your new square class, when scaled, should scale such that the middle of the\
+ * square stays in the same place. \
+ * *For example:\
+ * \
+ * square bottom-left = (4,4), side = 3 \
+ *    ---> scale 2 --> square bottom-left = (2.5,2.5), side = 6\
+ * \
+ * You should override the scale method to reflect this new property.\
+ * Hint: First scale like you normally would; then translate appropriately.\
+ *)\
+class square_center_scale (p: point) (s: float) : shape =\
+object\
+// don\'92t even need the (this) after object cuz not using anywhere\
+	inherit square_rect p s as super\
+	method! scale (k: float) : unit =\
+\'85. lots of lets, super#scale, super#scale\
+implementation is unimportant\
+\
+\
+\
+\
+end\
+\
+(* Extra note: \
+ * Sometimes we may want to partially write a class, but leave some methods\
+ * undefined, but force any classes that inherit this class to define\
+ * said methods. We use the "virtual" keyword to do this. *)\
+//animal can define some various methods\'85? idk confuse. In fact, useless\
+\
+\
+(******************************************************************************)\
+(*          PART 3 : Subtyping Polymorphism                                   *)\
+(******************************************************************************)\
+\
+(* As we wander more around Flatland, we discover that there are more four-sided\
+ * shapes than we originally thought. We knew about Square and Rectangle, but\
+ * now we also have Rhombi, Trapezoids, and other four-sided creatures that\
+ * collectively call themselves Quadrilateral.\
+ *\
+ * Since Square and Rect both like to identify themselves as Quadrilaterals,\
+ * which also identify themselves as Shapes, we need to make Quadrilateral\
+ * a **subtype** of Shape.\
+ * \
+ * Below, we have defined a new class type (interface) called quad. Notice that\
+ * quad has all of the methods in shape's signature, but adds an additional\
+ * method:\
+ * \
+ *   method sides : float * float * float * float\
+ * \
+ * Since quad can do everything that a shape can do (and thus, wherever we\
+ * expect a shape, we can safely pass a quad), then we consider quad a\
+ * **subtype** of shape.\
+ *)\
+class type quad =\
+object\
+  inherit shape\
+\
+\
+//interface quad is inheriting from interface shape\
+\
+\
+  (* return the length of the four sides *)\
+  method sides : float * float * float * float\
+end\
+\
+(* New Type Hierarchy:\
+\
+\
+                        +------------+\
+                        |            |\
+                        |  Shape (I) |\
+                        |            |\
+                        +------^-----+\
+                               |\
+                               |  subtypes\
+                               |\
+                        +------+-----+\
+                        |            |\
+                        | quad  (I)  |\
+                        |            |\
+                        +-^-----^--^-+\
+                          |     |  |\
+             implements   |     |  |  implements\
+           +--------------+     |  +------------------------+\
+           |                    |                           |\
+           |                    | implements                |\
+   +-------+--------+      +----+-----------+      +--------+----------+\
+   |                |      |                |      |                   |\
+   | square_quad (C)|      |  rect_quad (C) |      | my_quad (C)       |\
+   |                |      |                |      |                   |\
+   +----------------+      +----------------+      +-------------------+\
+\
+*)\
+\
+(* Question 3.1: Write a rectangle class to implement a quad. *)\
+class rect_quad (p: point) (w: float) (h: float) : quad =\
+object\
+// no (this)\
+	inherit rect p w h as super\
+\
+//satisfies everything that shape needed\
+//no protected var. would need to expose it\
+\
+	method sides = (2.,2.,2.,2.) //THIS IS INCORRECT WHO NEEDS IMPLEMENTATION ANYWAY. Point is inherit beforehand satisfies most of stuff\
+//could use bounding_box to get top left and top right and w/e\
+\
+end\
+\
+(* Question 3.2: Write a square class to implement a quad *)\
+class square_quad (p: point) (s: float) : quad =\
+object\
+// no (this) needed\
+	inherit rect_quad p s s\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+end\
+\
+(* Question 3.3: Write your own quadrilateral class! Your quadrilateral\
+ * need not be geometrically possible... *)\
+class my_quad (p: point) : quad =\
+object (this)\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+end\
+\
+(* So quad is a subtype of shape. So what? Since square_quad and rect_quad\
+ * are both quads, then they are both shapes as well. Thus, any function\
+ * expecting a shape can also be passed a quad as well, after an explicit\
+ * upcast, using the :> operator. *)\
+let box (s: shape) : point * point =\
+  s#bounding_box\
+\
+let (sq : quad) = new square_quad (3.,4.) 5. ;; \
+(* let b = box sq \
+ * \
+ * won't work! We need to cast sq from quad to shape *)\
+\
+let b = box (sq :> shape) ;; (* Works! *)\
+//explicitly upcasts sq to a shape. sq is subclass of shape, just need to explicitly say cuz dumbass move\
+\
+\
+let (l: shape list) =\
+  [new circle (3.,4.) 5.; (new square_quad (1.,1.) 3. :> shape)]\
+// to insert into shape list, need to upcast square_quad into shape\
+\
+(* NOTE: We can always upcast a subtype to its super type, but we can\
+ * NEVER downcast! *)\
+\
+\
+\
+(******************************************************************************)\
+(*          PART 4 : Dynamic Dispatch                                         *)\
+(******************************************************************************)\
+\
+(* Let's come back to our original problem with shapes: We wanted to be able\
+ * to define an area function on all shapes, even though we may not know all\
+ * possible shapes originally.\
+ * \
+ * By coding in an object-oriented fashion, this gave us the ability to create\
+ * an open world of shape types--we can always add a new shape by implementing\
+ * a new class, and we never have to change old code!\
+ * \
+ * \
+ * To add a new shape, we define a new class that implements shape (and in the\
+ * process, define the new shape's area method), and we are done! Let's take\
+ * a look at the new area function *)\
+\
+(* New area function, using shape's area method *)\
+let area (s: shape) : float = s#area\
+\
+(* Find the area of all the shapes in a list. *)\
+let area_list (lst: shape list) : float = \
+  List.fold_right ~f:(fun x r -> r +. area x) ~init:0. lst\
+\
+let (l: shape list) =\
+  [new circle (3.,4.) 5.; (new square_quad (1.,1.) 3. :> shape)]\
+\
+let a = area_list l ;;\
+\
+(* We note that we don't need a match statement like we did using algebraic\
+ * data types! Instead, we simply call s's area method. \
+ * \
+ * This is an example of **dynamic dispatch**: we decide which code to run\
+ * at RUNTIME (because it is not possible to determine it at COMPILETIME). \
+ * \
+ * In the area example, s#area is determined at runtime by the actual class\
+ * of s (s can be circle, square, rect, etc.). We cannot always determine the\
+ * class at compile time. For example, if we are passed a list of shapes\
+ * from the user at runtime, we cannot know which class's area method to call\
+ * until we are provided this information at runtime.\
+ * \
+ * In the area_adt function using algebraic data types, we DO NOT use \
+ * dynamic dispatch:\
+ * \
+ * let area_adt (s: shape_adt) : float =\
+ *   match s with\
+ *     | Square(_,s) -> s *. s\
+ *     | Rect(_,w,h) -> w *. h\
+ *     | Circle(_,r) -> 3.14159 *. r *. r\
+ * \
+ * area_adt always runs the same piece at code at runtime (the match statement),\
+ * although the exact branch of the match statement that we execute may not be\
+ * known.\
+ * \
+ * It is this property of dynamic dispatch that allows us to create an open\
+ * world for shapes! \
+ *)\
+\
+\
+\
+(******************************************************************************)\
+(*          PART 5 : Vocabulary Review                                        *)\
+(******************************************************************************)\
+\
+(* \
+Fill out these definitions below:\
+\
+1. interface (class type)\
+SEE SECTION NOTE SOLUTIONS\
+\
+\
+\
+\
+\
+2. class\
+\
+\
+\
+\
+\
+\
+3. object\
+\
+\
+\
+\
+\
+4. representation\
+\
+\
+\
+\
+\
+\
+5. inheritance\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+6. subtyping polymorphism\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+7. parametric polymorphism\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+8. dynamic dispatch\
+\
+\
+\
+\
+\
+9. open type vs. closed type\
+\
+\
+\
+\
+\
+\
+\
+\
+*)\
+\
+\
+\
+\
+\
+\
+\
+confusion\
+\
+n!/(k!*(n-k)!)  nck?\
+something something maths\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+events - stuff that happens\
+event listeners - code behind the scenes that listens for when event gets fired, then goes through and follows up all the events fired. Calls event handlers\
+event handlers (fun _ \'97> \'85) function that executes when event is fired\
+\'93registering\'94 handlers - can regiter as many handlers as you want to execute when the event fires\
+firing events - certain functionality happens\
+\
+buffering events - event always has argument with it (can insert unit/nil to do nothing). \
+\
+self#register_handler (Event51.buffer 5 World.move_event) (fun x -> dosomethingplz)\
+when move_event fired, move things\
+By using buffer, says function is only called once per five times World.move_event is fired\
+\
+\
+use ignore (eventszef) for units \
+ignore object creation\
+new human? Ignore that. ignore the return value of the new human. just want it to exist.\
+likewise, ignore event handlers b/c don\'92t want them to be activated?\
+\
+(* CS51\
+ * Section 8 - Events *)\
+\
+(******************************************************************************)\
+(*          PART 0 : Events and Listeners                                     *)\
+(******************************************************************************)\
+\
+(* Often, we want a program to react to things happening in our environment\
+ * rather than just execute a set of sequential instructions.  This paradigm\
+ * of "reacting to things happening in our environment" is called reactive\
+ * programming. Another way to think of reactive programming is to think of "a\
+ * thing happening" as a means for one thread to communicate to another thread.\
+ *\
+ * For example, consider a multi-threaded graphics-drawing application.  If one\
+ * of the threads has finished drawing an outline of a circle in the graphic, it\
+ * may want to tell other threads that the circle has been drawn so that those\
+ * other threads can color the circle. The first thread can send out a signal\
+ * to the application saying "Hey guys, I'm done drawing the circle!"  In other\
+ * words, the given thread has just communicated to other threads that it has\
+ * done something, so other threads should now react appropriately (hopefully\
+ * by coloring the circle). The coloring threads will be waiting for this\
+ * signal to occur; once they get the "Hey, I'm done" signal, the coloring\
+ * threads then color the circle.\
+ *\
+ * The idea of interpreting reactive programming as inter-thread communication\
+ * is at the heart of events. EVENTS are defined as the signals that threads\
+ * send out to an application, indicating to other threads that something has\
+ * happened and that they should react appropriately.  In order to send out\
+ * a signal, a thread creates a new event and "fires it," meaning that it\
+ * broadcasts the signal to the rest of the application.\
+ *\
+ * In our graphics example, not all of the threads need to hear that a thread\
+ * has finished drawing a circle.  (For example, do the square-coloring threads\
+ * care if some thread has drawn a circle?)  Instead, only the threads that need\
+ * to know that a circle has been drawn should be notified.\
+ *\
+ * In Ocaml, threads can tell the application that they would like to be\
+ * notified when a particular type of event has been fired, and what actions\
+ * they would like to take in response to that event.  This is where LISTENERS\
+ * come in.  Threads can add event listeners to an event, specifying for each\
+ * listener an EVENT HANDLER, or a method that should be executed when the event\
+ * is fired.  Whenever an events is fired, the threads that added listeners to\
+ * it are notified and execute the event handler immediately as a result.\
+ *\
+ * The three operations of events (creating events, firing events, and adding\
+ * listeners for events) make inter-thread communication easy and clean.  Much\
+ * more complex communication can be achieved by combining these operations.\
+ * See lecture notes for some examples of this.\
+ *)\
+\
+(* AnnoyingFacebookGirl (inspired by javaworld.com) *)\
+\
+module type EVENT =\
+sig\
+  type id\
+  type 'a event\
+  type status = Lyrics of string | RelationshipUpdate of string\
+		| CAPS of string | HashTag of string\
+  type commentType = Scumbag of string\
+                     | ContinuesSong of string | Agreement of string\
+                     | Song of string | Relationship of string\
+                     | Caps of string | HashTag of string\
+                     | Troll of string\
+  type response = Comment of commentType | Like\
+\
+  val new_event : unit -> 'a event\
+  val add_listener : 'a event -> ('a -> unit) -> id\
+\
+  (* Similar to add_listener, but the handler is only called the first time the\
+   * event is fired. *)\
+  val add_one_shot : 'a event -> ('a -> unit) -> id\
+\
+  (* Removes a listener identified by id from the event. *)\
+  val remove_listener : 'a event -> id -> unit\
+\
+  (* Signals that the event has occurred *)\
+  val fire_event : 'a event -> 'a -> unit\
+\
+  (* Some built-in events for Facebook activities. *)\
+  val status_event : status event\
+  val two_statuses_event : (status * status) event\
+  val response_event : response event\
+\
+  val terminate : unit -> 'a\
+\
+  val run : (unit -> unit) -> unit\
+end\
+\
+(* We're not going to spend time in section going over a concrete implementation\
+ * of the EVENT signature, but one implementation of a similar signature can be\
+ * found in lecture *)\
+module Event : EVENT = ... end\
+\
+(* Facebook World *)\
+(* Annoying Facebook Girl posts statuses to Facebook, and her friends either\
+ * comment on them or like them. Her friends include Scumbag Steve, Best Friend,\
+ * Good Guy Greg, and Troll Friend. *)\
+module Facebook =\
+struct\
+  (* Passing the function facebook a unit value will set off a chain of events:\
+   * we add listeners to status_event, response_event, and two_statuses_event, and\
+   * then we fire the first status_event. *)\
+  let facebook () =\
+    Event.run\
+      (fun () ->\
+        (\
+          ignore (Event.add_listener Event.status_event scumbagSteve);\
+          ignore (Event.add_listener Event.status_event bestFriend);\
+          ignore (Event.add_listener Event.status_event goodGuyGreg);\
+          ignore (Event.add_listener Event.two_statuses_event trollFriend);\
+          ignore (Event.add_listener Event.response_event annoyingFacebookGirl);\
+          Event.fire_event status_event\
+            (HashTag ("Too proud of my bestest bud in the entire world"\
+                  ^ "#sisters#smarty pants#gettingudrunkkkkkkTONIGHT"))\
+        )\
+      )\
+\
+  (* Exercise 1 *)\
+  (* Write the event handlers for each of the members of Facebook, according to\
+   * the description *)\
+\
+  (* Exercise 1.1 *)\
+  (* Annoying Facebook Girl should post a status anytime she receives a response\
+   * to one of her statuses.  She also likes to combine her statuses sometimes,\
+   * just for fun. Hint: one way to implement this is to make Annoying Facebook\
+   * Girl post a different status for each kind of response. *)\
+  let annoyingFacebookGirl (r: response) : unit = ???\
+	\
+\
+\
+\
+\
+\
+\
+\
+\
+  (* Exercise 1.2 *)\
+  (* Scumbag Steve only responds to Annoying Facebook Girl in a scumbag way when\
+   * she posts a relationship status update. Otherwise, he ignores her. *)\
+  let scumbagSteve (s: status) : unit = ???\
+	match s with\
+	| Lyrics u -> fire_event response_event (COmment(Scumbag \'93lol of whatev\'94))\
+	| _ -> ()\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+  (* Exercise 1.3 *)\
+  (* Good Guy Greg always responds to Annoying Facebook Girl's\
+   * status updates, putting lots of thought into each comment. *)\
+  let goodGuyGreg (s: status) : unit = ???\
+\
+\
+\
+\
+\
+\
+\
+\
+  (* Exercise 1.4 *)\
+  (* Annoying Facebook Girl's best friend likes all of her statuses, regardless\
+   * of content (since they're bffs, of course).  She likes to finish off her\
+   * friend's song lyrics status updates, and she tends to agree with all the\
+   * rest of her friend's status updates. *)\
+  let bestFriend (s: status) : unit = ???\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+  (* Exercise 1.5 *)\
+  (* Troll Friend trolls Annoying Facebook Girl whenever she combines different\
+   * status types. *)\
+  let trollFriend (s : status * status) : unit = ???\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+end\
+\
+\
+\
+\
+\
+\pard\pardeftab720
+\cf0 (*\
+ * CS 51 Section 9\
+ * Intro to Concurrency\
+ *)\
+\
+open Core.Std\
+\
+(* Define the following terms:\
+\
+    - Concurrency\
+\
+\
+\
+\
+    - Parallelism\
+\
+\
+\
+\
+    - Thread\
+\
+\
+\
+\
+    - Critical section\
+\
+\
+\
+\
+    - Lock / Mutex\
+No 2 threads are in a critical section for a shared resource at the same time. Only 1 thread can hold text at once.\
+\
+\
+\
+    - Deadlock\
+When thread don\'92t make progress b/c 2 threads have different locks, and each want the other\'92s stuff.\
+\
+\
+\
+    - Atomic\
+whole thing happens at once\
+\
+\
+\
+*)\
+\
+\
+\
+\
+\
+(* Exercise 0.1\
+ *\
+ * Threads make life complicated!  Why do we bother?\
+ *)\
+\
+\
+\
+\
+\
+(* Exercise 0.2\
+ *\
+ * What are futures? How do they differ from threads? When might you use futures?\
+ *)\
+\
+\
+\
+\
+(* In OCaml, a concurrent program uses threads to interleave execution\
+ * of different parts of the program. Threads are created using Thread.create\
+ * of the Thread module. In the programs you've written so far, all your code\
+ * has run in a main thread that was created by default. If a Thread is\
+ * created, it begins executing the code in the function you pass to\
+ * Thread.create.  Calling Thread.join with the thread id that Thread.create\
+ * returns causes the main thread to wait until the other thread finishes.\
+ *\
+ * We may reason about order of execution more easily by defining\
+ * "happens-before" relationships. Given a Thread t,\
+ *   - A call to Thread.create happens before any statement executed by\
+ *     the thread\
+ *   - If Thread.join is called on thread t, all statements executed by\
+ *     t happen before Thread.join returns\
+ *\
+ *)\
+\
+\
+(* Exercise 1. *)\
+\
+(* What's wrong with the following code? *)\
+\
+\
+let f () =\
+    let x = ref 0 in\
+    let inc x = x := !x + 1 in\
+\
+    let rec g repeat () =\
+        if repeat <= 0 then () else\
+        let _ = inc x in\
+        g (repeat-1) () in\
+\
+    let thread = Thread.create (fun _ -> g 1000000 ()) () in\
+    let _ = g 1000000 () in\
+    Thread.join thread;\
+    print_int !x; print_string "\\n"\
+\
+let _ = f ()\
+\
+\
+(* What's one way of fixing this program? Insert the fix into the program.\
+ * What does this do to the parallelism of our code?\
+ *)\
+\
+\
+(* Try to reason about all of the possible interleavings of the functions\
+ * x and y below, and the possible final values of num (assuming that only\
+ * valid interleavings can produce final values, which may not be the case,\
+ * and in fact probably isn't the case on your own computer).\
+ *)\
+\
+\
+let f () =\
+    let num = ref 0 in\
+    let inc () = num := !num + 1 in\
+\
+    let x () =\
+        let _ =\
+            if (!num = 0) then inc ()\
+            else if (!num = 2) then (inc (); inc ())\
+            else inc(); inc(); inc() in\
+        () in\
+\
+    let y () =\
+        inc ();\
+        let _ = if (!num = 1) then inc () in\
+        () in\
+\
+    let thread = Thread.create y () in\
+    let _ = x () in\
+    Thread.join thread;\
+\
+\
+\
+\
+\
+(* Exercise 2: Linked Lists *)\
+\
+(*\
+ * Remember from lecture that divide and conquer algorithms are not very\
+ * effective when dealing with lists, since there is no constant-time way\
+ * of dividing the list into parts. However, we may still want to be able\
+ * to access and modify a list safely from multiple threads. Here we'll define\
+ * such a list data structure.\
+ *)\
+\
+class type ['a] linked_list =\
+object\
+    (* Adds an element to the front of the list *)\
+    method push : 'a -> unit\
+\
+    (* Removes and returns the element from the from of the list *)\
+    method pop : 'a option\
+\
+    (* Returns true if the given element is in the list, false otherwise *)\
+    method search : 'a -> bool\
+\
+    (* Removes the first occurrence of the given element in the list.\
+     * Returns the original list if such an element is not found *)\
+    method remove : 'a -> unit\
+\
+end\
+\
+(* If we wanted, we could keep a lock on the entire list, in which case all\
+ * list operations would readily be atomic. Why might we not want to do that?\
+ *)\
+\
+(* Instead, associate a mutex with each element in the list *)\
+type 'a node = Nil | Cons of 'a * 'a list\
+and 'a list = \{lock : Mutex.t; mutable node : 'a node\}\
+\
+(* The following functions from lecture might be useful. *)\
+\
+let with_lock (l:Mutex.t) (f:unit -> 'a) : 'a =\
+    let _ = Mutex.lock l in\
+    let res = try f () with exn -> (Mutex.unlock l ; raise exn) in\
+    let _ = Mutex.unlock l in\
+    res\
+\
+\
+let new_id : unit -> int =\
+    let c = ref 0 in\
+    let l = Mutex.create() in\
+    (fun _ -> with_lock l (fun () -> (c := (!c) + 1; !c)))\
+\
+(*\
+ * Do we actually need new_id? What did we originally use it for? Why might\
+ * that not matter in this case?\
+ *)\
+\
+class ['a] llist : ['a] linked_list =\
+object (this)\
+\
+\
+    (* Why do we still need a super lock? *)\
+    val super_lock : Mutex.t = Mutex.create()\
+    val mutable contents : 'a list = \{lock = Mutex.create(); node =  Nil\}\
+\
+    method push x =\
+\
+\
+\
+\
+\
+\
+\
+    method pop =\
+\
+\
+\
+\
+\
+\
+\
+    method search x =\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+    method remove x =\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+end\
+\
+(* Summary:\
+ *\
+ * Reasoning about concurrent programming is hard.  You should now\
+ * have a sense of why, and should be able to see concurrency problems\
+ * in toy examples.  If you want to learn more, take CS61.  If you\
+ * want to really understand concurrency, take cs161.\
+ *)\
+\pard\pardeftab720
+\cf0 \
+}
